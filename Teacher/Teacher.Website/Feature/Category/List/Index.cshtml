@@ -1,0 +1,12 @@
+﻿@page
+@model Category.List.IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h4>Kategorie <a asp-page="CreateUpdate">Dodaj</a></h4>
+
+@foreach (var category in Model.Data.Categories)
+{
+    <div>@category.Name <a asp-page="CreateUpdate" asp-route-CategoryId="@category.Id">Zmień</a></div>
+}

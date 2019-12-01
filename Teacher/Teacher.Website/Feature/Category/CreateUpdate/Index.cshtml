@@ -1,0 +1,42 @@
+﻿@page "{CategoryId:int?}"
+@model Category.CreateUpdate.IndexModel
+@if (Model.Data.Category.Id > 0)
+{
+    ViewData["Title"] = "Edytuj kategorię";
+    <h4>Edytuj kategorię</h4>
+}
+else
+{
+    ViewData["Title"] = "Dodaj kategorię";
+    <h4>Dodaj kategorię</h4>
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <section>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="Data.Category.Id" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Data.Category.Name"></label>
+                    <input asp-for="Data.Category.Name" class="form-control" />
+                    <span asp-validation-for="Data.Category.Name" class="text-danger"></span>
+                </div>
+                <div class="center">
+                    @if (Model.Data.Category.Id > 0)
+                    {
+                        <button type="submit" class="btn btn-primary">Zmień</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                    }
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

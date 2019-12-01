@@ -1,0 +1,17 @@
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="navbar-nav">
+
+        <li class="nav-item">
+            <div style="padding: 8px">Czeœæ @User.Identity.Name!</div>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">Wyloguj</button>
+            </form>
+        </li>
+    </ul>
+}

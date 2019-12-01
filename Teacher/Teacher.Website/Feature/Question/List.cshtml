@@ -1,0 +1,12 @@
+﻿@page "{Type}"
+@model Question.ListModel
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<h4>Pytania <a asp-page="CreateUpdate">Dodaj</a></h4>
+
+@foreach (var question in Model.Data.Questions)
+{
+    <div>@question.Content <a asp-page="CreateUpdate" asp-route-QuestionId="@question.Id">Zmień</a></div>
+}
