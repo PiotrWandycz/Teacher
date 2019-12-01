@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Question.List
 {
     public class IndexModel : PageModel
     {
@@ -16,8 +16,5 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 
         public async Task OnGetAsync(Query query)
             => Data = await _facade.OnGetAsync(query);
-
-        public async Task<IActionResult> OnPostAsync()
-            => await _facade.OnPostAsync(new Command { Category = Data.Category });
     }
 }
