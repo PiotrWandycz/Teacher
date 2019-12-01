@@ -1,0 +1,60 @@
+﻿@page "{QuestionId:int?}"
+@model Question.CreateUpdateModel
+@if (Model.Data.Question.QuestionId > 0)
+{
+    ViewData["Title"] = "Edytuj pytanie";
+    <h4>Edytuj pytanie</h4>
+}
+else
+{
+    ViewData["Title"] = "Dodaj pytanie";
+    <h4>Dodaj pytanie</h4>
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <section>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <label asp-for="Data.Question.CategoryName"></label>
+                <select name="Data.Question.CategoryId" asp-items="Model.Data.Categories"></select>
+                <input asp-for="Data.Question.QuestionId" />
+                <div class="form-group">
+                    <label asp-for="Data.Question.Content"></label>
+                    <input asp-for="Data.Question.Content" class="form-control" />
+                    <span asp-validation-for="Data.Question.Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Data.Question.AnswerJunior"></label>
+                    <input asp-for="Data.Question.AnswerJunior" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Data.Question.AnswerRegular"></label>
+                    <input asp-for="Data.Question.AnswerRegular" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Data.Question.AnswerSenior"></label>
+                    <input asp-for="Data.Question.AnswerSenior" class="form-control" />
+                </div>
+                <div class="center">
+                    @if (Model.Data.Question.QuestionId > 0)
+                    {
+                        <button type="submit" name="edit" class="btn btn-primary">Zmień</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="edit" class="btn btn-primary">Dodaj</button>
+                    }
+                </div>
+            </form>
+            @*@if (Model.Data.Question.QuestionId > 0)
+            {
+                <a class="btn btn-danger" asp-page="Delete" asp-route-QuestionId="@Model.Data.Question.QuestionId">Usuń</a>
+            }*@
+            </section>
+        </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
