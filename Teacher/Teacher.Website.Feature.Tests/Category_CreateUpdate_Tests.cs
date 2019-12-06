@@ -16,7 +16,7 @@ namespace Teacher.Website.Feature.Tests
         [Test]
         public async Task OnGetAsync_should_work_in_a_happy_day_scenario()
         {
-            var facade = (IFacade)ServiceProvider.GetService(typeof(IFacade));
+            var facade = (IPageFacade)ServiceProvider.GetService(typeof(IPageFacade));
             var query = new Query() { CategoryId = 1 };
 
             var result = await facade.OnGetAsync(query);
@@ -27,7 +27,7 @@ namespace Teacher.Website.Feature.Tests
         [Test]
         public async Task OnPostAsync_should_work_in_a_happy_day_scenario()
         {
-            var facade = (IFacade)ServiceProvider.GetService(typeof(IFacade));
+            var facade = (IPageFacade)ServiceProvider.GetService(typeof(IPageFacade));
             var command = new Command
             {
                 Category = new Model.CategoryModel { Name = "Bazy danych" }

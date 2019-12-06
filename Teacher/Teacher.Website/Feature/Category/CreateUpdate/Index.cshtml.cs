@@ -6,18 +6,18 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 {
     public class IndexModel : PageModel
     {
-        private readonly IFacade _facade;
+        private readonly IPageFacade _pageFacade;
 
-        public IndexModel(IFacade facade)
-            => _facade = facade;
+        public IndexModel(IPageFacade pageFacade)
+            => _pageFacade = pageFacade;
 
         [BindProperty]
         public Model Data { get; set; }
 
         public async Task OnGetAsync(Query query)
-            => Data = await _facade.OnGetAsync(query);
+            => Data = await _pageFacade.OnGetAsync(query);
 
         public async Task<IActionResult> OnPostAsync()
-            => await _facade.OnPostAsync(new Command { Category = Data.Category });
+            => await _pageFacade.OnPostAsync(new Command { Category = Data.Category });
     }
 }

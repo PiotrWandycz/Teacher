@@ -49,7 +49,7 @@ namespace Teacher.Website
         private void ConfigureApp(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddScoped<IFacade, Facade>();
+            services.AddScoped<IPageFacade, PageFacade>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

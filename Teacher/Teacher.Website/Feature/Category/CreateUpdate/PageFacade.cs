@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Teacher.Website.Feature.Category.CreateUpdate
 {
-    public class Facade : IFacade
+    class PageFacade : IPageFacade
     {
         private readonly IMediator _mediator;
 
-        public Facade(IMediator mediator)
+        public PageFacade(IMediator mediator)
             => _mediator = mediator;
 
         public async Task<Model> OnGetAsync(Query query)

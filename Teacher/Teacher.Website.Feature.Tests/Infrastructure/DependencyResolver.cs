@@ -13,7 +13,7 @@ namespace Teacher.Website.Feature.Tests.Infrastructure
         {
             var services = new ServiceCollection();
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddScoped<IFacade, Facade>();
+            services.AddScoped<IPageFacade, PageFacade>();
             services.AddScoped(x => new ConfigurationFactory().Create());
             services.AddDbContext<TeacherContext>(options =>
                 options.UseSqlServer(new ConnectionStringFactory().Create()));

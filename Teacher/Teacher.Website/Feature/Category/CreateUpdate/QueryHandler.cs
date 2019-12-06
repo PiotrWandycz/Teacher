@@ -11,11 +11,11 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 {
     internal class QueryHandler : IRequestHandler<Query, Model>
     {
-        private readonly IConfiguration _configuration;
+        private readonly IRepository _repository;
 
-        public QueryHandler(IConfiguration configuration)
+        public QueryHandler(IRepository repository)
         {
-            _configuration = configuration;
+            _repository = repository;
         }
 
         public async Task<Model> Handle(Query query, CancellationToken cancellationToken)
@@ -23,17 +23,9 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
             var model = new Model();
             if (!query.CategoryId.HasValue)
                 return model;
-            model.Category = await GetCategory(_configuration, query.CategoryId.Value);
+            model.Category = await _repository.GetCategoryAsync(query.CategoryId.Value); 
             return model;
         }
 
-        private async Task<Model.CategoryModel> GetCategory(IConfiguration configuration, int categoryId)
-        {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var sql = $"SELECT [Id], [Name] FROM [Category] WHERE [Id] = { categoryId }";
-                return await db.QueryFirstAsync<Model.CategoryModel>(sql);
-            }
-        }
     }
 }
