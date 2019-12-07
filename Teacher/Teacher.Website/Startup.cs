@@ -49,7 +49,14 @@ namespace Teacher.Website
         private void ConfigureApp(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddScoped<IPageFacade, PageFacade>();
+            services.Scan(x => x.FromAssemblyOf<Startup>()
+                .AddClasses(x => x.AssignableTo<IPageFacadeMarker>())
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+            services.Scan(x => x.FromAssemblyOf<Startup>()
+                .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using Microsoft.SqlServer.Dac;
 using NUnit.Framework;
-using Teacher.Website.Feature.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
     [SetUpFixture]
     public class SetupTestsOnce

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Teacher.Website.Feature.Tests.Infrastructure
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
     internal class ConfigurationFactory
     {

@@ -3,7 +3,7 @@ using MediatR;
 using System;
 using Teacher.Website.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests.Infrastructure
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
     public class DependencyResolver
     {
