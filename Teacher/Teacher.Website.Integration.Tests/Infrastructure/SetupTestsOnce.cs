@@ -1,6 +1,8 @@
-﻿using System.IO;
-using Microsoft.SqlServer.Dac;
+﻿using com.rusanu.DBUtil;
+using Dapper;
 using NUnit.Framework;
+using System.Data.SqlClient;
+using System.IO;
 
 namespace Teacher.Website.Integration.Tests.Infrastructure
 {
@@ -13,21 +15,39 @@ namespace Teacher.Website.Integration.Tests.Infrastructure
             CreateTestDatabase();
         }
 
-        [OneTimeTearDown]
-        public void RunAfterAnyTests()
-        {
-        }
-
         private void CreateTestDatabase()
         {
-            var dacpacPath = Path.Combine(PathHelper.GetFilesPath(), "TeacherTests.dacpac");
-            var dacpac = DacPackage.Load(dacpacPath);
-            var options = new DacDeployOptions
+            var scriptPath = Path.Combine(PathHelper.GetFilesPath(), "Teacher.Database_Create.sql");
+            var connectionString = new ConnectionStringFactory().ToServer();
+            using (var connection = new SqlConnection(connectionString))
             {
-                CreateNewDatabase = true
-            };
-            new DacServices(new ConnectionStringFactory().Create()).Deploy(dacpac, "TeacherTests", false, options);
+                connection.Open();
+                var inst = new SqlCmd(connection);
+                inst.ExecuteFile(scriptPath);
+                connection.Close();    
+            }
         }
+
+        [OneTimeTearDown]
+        public void RunAfterAllTests()
+        {
+            DropDatabaseIfExists();
+        }
+
+        private void DropDatabaseIfExists()
+        {
+            var connectionString = new ConnectionStringFactory().ToServer();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var killConnections = "ALTER DATABASE [Teacher.Database] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                var dropDatabase = "DROP DATABASE [Teacher.Database]";
+                connection.Open();
+                connection.Execute(killConnections);
+                connection.Execute(dropDatabase);
+                connection.Close();
+            }
+        }
+
     }
 
     [TestFixture]

@@ -8,7 +8,7 @@ namespace Teacher.Website.Integration.Tests.Infrastructure
         {
             return new ConfigurationBuilder()
                     .SetBasePath(PathHelper.GetFilesPath())
-                    .AddJsonFile("appsettings.Test.json", optional: true)
+                    .AddJsonFile("appsettings.Test.json", optional: false, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .Build();
         }
