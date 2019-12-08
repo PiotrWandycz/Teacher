@@ -10,7 +10,6 @@ namespace Teacher.Website.Feature.Tests.Infrastructure
         internal IServiceProvider GetServiceProvider()
         {
             var services = new ServiceCollection();
-            services.AddMediatR(typeof(Startup).Assembly);
             services.Scan(x => x.FromAssemblyOf<Startup>()
                 .AddClasses(x => x.AssignableTo<IPageFacadeMarker>())
                 .AsImplementedInterfaces()
@@ -19,6 +18,7 @@ namespace Teacher.Website.Feature.Tests.Infrastructure
                 .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+            services.AddMediatR(typeof(Startup).Assembly);
             return services.BuildServiceProvider();
         }
     }

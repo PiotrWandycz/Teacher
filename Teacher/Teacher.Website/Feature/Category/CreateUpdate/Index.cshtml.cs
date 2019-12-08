@@ -12,7 +12,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
             => _pageFacade = pageFacade;
 
         [BindProperty]
-        public Model Data { get; set; }
+        public ViewModel Data { get; set; }
 
         public async Task OnGetAsync(Query query)
             => Data = await _pageFacade.OnGetAsync(query);

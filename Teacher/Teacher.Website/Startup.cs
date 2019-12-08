@@ -38,17 +38,17 @@ namespace Teacher.Website
 
         private void ConfigureDatabase(IServiceCollection services)
         {
+            services.AddSingleton<IConnectionStringFactory, ConnectionStringFactory>();
             services.AddDbContext<TeacherContext>(options =>
                             options.UseSqlServer(
-                                Configuration.GetConnectionString("DefaultConnection")));
+                                Configuration.GetConnectionString("DatabaseConnection")));
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DatabaseConnection")));
         }
 
         private void ConfigureApp(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup).Assembly);
             services.Scan(x => x.FromAssemblyOf<Startup>()
                 .AddClasses(x => x.AssignableTo<IPageFacadeMarker>())
                 .AsImplementedInterfaces()
@@ -57,6 +57,7 @@ namespace Teacher.Website
                 .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+            services.AddMediatR(typeof(Startup).Assembly);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

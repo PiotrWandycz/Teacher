@@ -34,7 +34,7 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
 
         private async Task<IEnumerable<Model.CategoryModel>> GetCategories(IConfiguration configuration)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
             {
                 var sql = "SELECT [Id], [Name] FROM [Category]";
                 return await db.QueryAsync<Model.CategoryModel>(sql);
@@ -52,7 +52,7 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
 
         private async Task<Model.QuestionModel> GetQuestion(IConfiguration configuration, int questionId)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
             {
                 var sql = $"SELECT * FROM [vw_QuestionCreateUpdate] WHERE [QuestionId] = { questionId }";
                 return await db.QueryFirstAsync<Model.QuestionModel>(sql);

@@ -4,9 +4,10 @@ using NUnit.Framework;
 using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
+using Teacher.Website.Feature.Category.CreateUpdate;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Tests.Category
 {
     [TestFixture]
     public class Category_CreateUpdate_Tests : TestBase
@@ -30,7 +31,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         {
             var query = new Query() { CategoryId = 1 };
             var repo = A.Fake<IRepository>();
-            A.CallTo(() => repo.GetCategoryAsync(1)).Returns(new Model.CategoryModel() { Id = 1, Name = "Cat" });
+            A.CallTo(() => repo.GetCategoryAsync(1)).Returns(new ViewModel.CategoryViewModel() { Id = 1, Name = "Cat" });
             var handler = new QueryHandler(repo);
 
             var result = await handler.Handle(query, CancellationToken.None);
@@ -45,7 +46,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         {
             var command = new Command
             {
-                Category = new Model.CategoryModel { Name = "Cat" }
+                Category = new ViewModel.CategoryViewModel { Name = "Cat" }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);
@@ -61,7 +62,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         {
             var command = new Command
             {
-                Category = new Model.CategoryModel { Id = 5, Name = "Cat" }
+                Category = new ViewModel.CategoryViewModel { Id = 5, Name = "Cat" }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);

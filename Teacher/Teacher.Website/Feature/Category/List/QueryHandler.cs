@@ -28,7 +28,7 @@ namespace Teacher.Website.Feature.Category.List
 
         private async Task<IEnumerable<Model.CategoryModel>> GetCategories(IConfiguration configuration)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
             {
                 var sql = "SELECT [Id], [Name] FROM [Category]";
                 return await db.QueryAsync<Model.CategoryModel>(sql);

@@ -57,10 +57,6 @@ USE [$(DatabaseName)];
 
 
 GO
-ALTER DATABASE [$(DatabaseName)]
-    SET SINGLE_USER 
-    WITH ROLLBACK IMMEDIATE
-GO
 IF EXISTS (SELECT 1
            FROM   [master].[dbo].[sysdatabases]
            WHERE  [name] = N'$(DatabaseName)')

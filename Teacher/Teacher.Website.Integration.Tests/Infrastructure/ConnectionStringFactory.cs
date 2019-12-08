@@ -1,6 +1,8 @@
-﻿namespace Teacher.Website.Integration.Tests.Infrastructure
+﻿using Teacher.Website.Infrastructure;
+
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
-    internal class ConnectionStringFactory
+    internal class ConnectionStringFactory : IConnectionStringFactory
     {
         public string ToDatabase()
         {

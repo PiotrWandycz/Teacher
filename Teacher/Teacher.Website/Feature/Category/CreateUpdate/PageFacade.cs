@@ -11,7 +11,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         public PageFacade(IMediator mediator)
             => _mediator = mediator;
 
-        public async Task<Model> OnGetAsync(Query query)
+        public async Task<ViewModel> OnGetAsync(Query query)
             => await _mediator.Send(query);
 
         public async Task<IActionResult> OnPostAsync(Command command)

@@ -1,28 +1,28 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Teacher.Website.Infrastructure;
 using Teacher.Website.Infrastructure.Database;
 
 namespace Teacher.Website.Feature.Category.CreateUpdate
 {
     class Repository : IRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConnectionStringFactory _connectionStringFactory;
         private readonly TeacherContext _dbContext;
 
-        public Repository(IConfiguration configuration, TeacherContext dbContext)
+        public Repository(IConnectionStringFactory connectionStringFactory, TeacherContext dbContext)
         {
-            _configuration = configuration;
+            _connectionStringFactory = connectionStringFactory;
             _dbContext = dbContext;
         }
 
-        public async Task<Model.CategoryModel> GetCategoryAsync(int categoryId)
+        public async Task<ViewModel.CategoryViewModel> GetCategoryAsync(int categoryId)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
                 var sql = $"SELECT [Id], [Name] FROM [Category] WHERE [Id] = { categoryId }";
-                return await db.QueryFirstAsync<Model.CategoryModel>(sql);
+                return await db.QueryFirstAsync<ViewModel.CategoryViewModel>(sql);
             }
         }
 

@@ -3,9 +3,8 @@ using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
 using Teacher.Website.Feature.Category.CreateUpdate;
-using Teacher.Website.Integration.Tests.Infrastructure;
 
-namespace Teacher.Website.Integration.Tests.Category.CreateUpdate
+namespace Teacher.Website.Integration.Tests
 {
     [TestFixture]
     public class Category_CreateUpdate_Tests : TestBase
@@ -27,7 +26,7 @@ namespace Teacher.Website.Integration.Tests.Category.CreateUpdate
             var facade = GetService<IPageFacade>();
             var command = new Command
             {
-                Category = new Model.CategoryModel { Name = "Bazy danych" }
+                Category = new ViewModel.CategoryViewModel { Name = "Bazy danych" }
             };
 
             var result = await facade.OnPostAsync(command);

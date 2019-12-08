@@ -29,7 +29,7 @@ namespace Teacher.Website.Feature.Question.List
 
         private async Task<IEnumerable<Model.QuestionModel>> GetQuestions(IConfiguration configuration, QuestionType type)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
             {
                 var sql = string.Empty;
                 if (type == QuestionType.All)
@@ -46,7 +46,7 @@ namespace Teacher.Website.Feature.Question.List
 
         private async Task<IEnumerable<vw_QuestionList>> GetQuestionsNew(IConfiguration configuration, QuestionType type)
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
             {
                 var sql = string.Empty;
                 if (type == QuestionType.All)

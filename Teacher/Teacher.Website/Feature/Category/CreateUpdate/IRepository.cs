@@ -5,7 +5,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<Model.CategoryModel> GetCategoryAsync(int categoryId);
+        Task<ViewModel.CategoryViewModel> GetCategoryAsync(int categoryId);
         Task CreateCategoryAsync(string name);
         Task UpdateCategoryAsync(int id, string name);
     }
