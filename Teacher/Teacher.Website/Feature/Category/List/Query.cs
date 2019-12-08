@@ -2,7 +2,7 @@
 
 namespace Teacher.Website.Feature.Category.List
 {
-    public class Query : IRequest<Model>
+    public class Query : IRequest<ViewModel>
     {
     }
 }

@@ -26,6 +26,5 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
             model.Category = await _repository.GetCategoryAsync(query.CategoryId.Value); 
             return model;
         }
-
     }
 }

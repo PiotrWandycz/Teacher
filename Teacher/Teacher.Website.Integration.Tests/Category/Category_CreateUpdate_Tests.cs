@@ -17,7 +17,7 @@ namespace Teacher.Website.Integration.Tests
 
             var result = await facade.OnGetAsync(query);
 
-            result.Category.Name.ShouldBe("Programowanie obiektowe");
+            result.Category.Name.ShouldBe("Cat1");
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Teacher.Website.Integration.Tests
             var facade = GetService<IPageFacade>();
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Name = "Bazy danych" }
+                Category = new ViewModel.CategoryViewModel { Name = "Cat4" }
             };
 
             var result = await facade.OnPostAsync(command);
