@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Teacher.Website.Feature.Category.CreateUpdate;
 using Teacher.Website.Infrastructure.Database;
 using Teacher.Website.Infrastructure;
 

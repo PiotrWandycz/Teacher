@@ -1,7 +1,4 @@
-﻿using Dapper;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
+﻿using MediatR;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
