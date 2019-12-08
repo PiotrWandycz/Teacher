@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -7,9 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\appsettings.Test.json" />
+    <None Remove="Files\Teacher.Database_Create.sql" />
+    <None Remove="Files\Teacher.Database_PostDeploySeed.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\appsettings.Test.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Teacher.Database_Create.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Teacher.Database_PostDeploySeed.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="com.rusanu.DBUtil" Version="1.5.6198.25619" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="FakeItEasy" Version="5.5.0" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="nunit" Version="3.12.0" />
@@ -17,6 +38,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Scrutor" Version="3.1.0" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
   </ItemGroup>
 
   <ItemGroup>

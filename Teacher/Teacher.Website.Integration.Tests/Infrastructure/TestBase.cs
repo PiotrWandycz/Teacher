@@ -1,6 +1,7 @@
 ﻿using System;
+using Teacher.Website.Integration.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests.Infrastructure
+namespace Teacher.Website.Integration.Tests
 {
     public abstract class TestBase
     {

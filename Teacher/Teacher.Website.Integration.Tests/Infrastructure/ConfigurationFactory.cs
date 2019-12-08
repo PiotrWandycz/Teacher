@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Teacher.Website.Feature.Tests.Infrastructure
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
     internal class ConfigurationFactory
     {
@@ -8,7 +8,7 @@ namespace Teacher.Website.Feature.Tests.Infrastructure
         {
             return new ConfigurationBuilder()
                     .SetBasePath(PathHelper.GetFilesPath())
-                    .AddJsonFile("appsettings.Test.json", optional: true)
+                    .AddJsonFile("appsettings.Test.json", optional: false, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .Build();
         }

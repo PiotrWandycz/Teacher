@@ -2,7 +2,7 @@
 
 namespace Teacher.Website.Feature.Category.CreateUpdate
 {
-    public class Query : IRequest<Model>
+    public class Query : IRequest<ViewModel>
     {
         public int? CategoryId { get; set; }
     }

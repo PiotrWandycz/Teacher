@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Teacher.Website.Feature.Category.CreateUpdate;
 using Teacher.Website.Infrastructure.Database;
 using Teacher.Website.Infrastructure;
 
@@ -38,18 +37,26 @@ namespace Teacher.Website
 
         private void ConfigureDatabase(IServiceCollection services)
         {
+            services.AddSingleton<IConnectionStringFactory, ConnectionStringFactory>();
             services.AddDbContext<TeacherContext>(options =>
                             options.UseSqlServer(
-                                Configuration.GetConnectionString("DefaultConnection")));
+                                Configuration.GetConnectionString("DatabaseConnection")));
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DatabaseConnection")));
         }
 
         private void ConfigureApp(IServiceCollection services)
         {
+            services.Scan(x => x.FromAssemblyOf<Startup>()
+                .AddClasses(x => x.AssignableTo<IPageFacadeMarker>())
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+            services.Scan(x => x.FromAssemblyOf<Startup>()
+                .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddScoped<IFacade, Facade>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

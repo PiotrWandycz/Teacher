@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Teacher.Website.Feature.Tests.Infrastructure
+namespace Teacher.Website.Integration.Tests.Infrastructure
 {
     internal static class PathHelper
     {

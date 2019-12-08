@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Teacher.Website.Feature.Category.CreateUpdate
 {
-    public class Model
+    public class ViewModel
     {
         [BindProperty]
-        public CategoryModel Category { get; set; }
+        public CategoryViewModel Category { get; set; }
 
-        public Model()
+        public ViewModel()
         {
-            Category = new CategoryModel();
+            Category = new CategoryViewModel();
         }
 
-        public class CategoryModel
+        public class CategoryViewModel
         {
             [Required]
             [Display()]
@@ -21,6 +21,11 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 
             [Required]
             public string Name { get; set; }
+
+            public CategoryViewModel()
+            {
+                Name = string.Empty;
+            }
         }
     }
 }

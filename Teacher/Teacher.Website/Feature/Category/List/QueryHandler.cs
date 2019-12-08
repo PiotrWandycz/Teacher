@@ -1,8 +1,4 @@
-﻿using Dapper;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using MediatR;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,29 +6,20 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
 namespace Teacher.Website.Feature.Category.List
 {
-    internal class QueryHandler : IRequestHandler<Query, Model>
+    internal class QueryHandler : IRequestHandler<Query, ViewModel>
     {
-        private readonly IConfiguration _configuration;
+        private readonly IRepository _repository;
 
-        public QueryHandler(IConfiguration configuration)
+        public QueryHandler(IRepository repository)
         {
-            _configuration = configuration;
+            _repository = repository;
         }
 
-        public async Task<Model> Handle(Query query, CancellationToken cancellationToken)
+        public async Task<ViewModel> Handle(Query query, CancellationToken cancellationToken)
         {
-            var model = new Model();
-            model.Categories = await GetCategories(_configuration);
+            var model = new ViewModel();
+            model.Categories = await _repository.GetCategoriesAsync();
             return model;
-        }
-
-        private async Task<IEnumerable<Model.CategoryModel>> GetCategories(IConfiguration configuration)
-        {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var sql = "SELECT [Id], [Name] FROM [Category]";
-                return await db.QueryAsync<Model.CategoryModel>(sql);
-            }
         }
     }
 }
