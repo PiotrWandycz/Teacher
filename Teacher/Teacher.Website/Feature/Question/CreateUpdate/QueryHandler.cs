@@ -1,9 +1,6 @@
-﻿using Dapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,36 +9,27 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
 namespace Teacher.Website.Feature.Question.CreateUpdate
 {
-    internal class QueryHandler : IRequestHandler<Query, Model>
+    internal class QueryHandler : IRequestHandler<Query, ViewModel>
     {
-        private readonly IConfiguration _configuration;
+        private readonly IRepository _repository;
 
-        public QueryHandler(IConfiguration configuration)
+        public QueryHandler(IRepository repository)
         {
-            _configuration = configuration;
+            _repository = repository;
         }
 
-        public async Task<Model> Handle(Query query, CancellationToken cancellationToken)
+        public async Task<ViewModel> Handle(Query query, CancellationToken cancellationToken)
         {
-            var model = new Model();
-            model.Categories = await GetCategories(_configuration).ContinueWith(x => MapCategories(x.Result));
-            if (!query.QuestionId.HasValue)
+            var model = new ViewModel();
+            model.Categories = await _repository.GetCategoriesAsync().ContinueWith(x => MapCategories(x.Result));
+            if (!query.Id.HasValue)
                 return model;
-            model.Question = await GetQuestion(_configuration, query.QuestionId.Value);
+            model.Question = await _repository.GetQuestionAsync(query.Id.Value);
             MarkCategorySelected(model);
             return model;
         }
 
-        private async Task<IEnumerable<Model.CategoryModel>> GetCategories(IConfiguration configuration)
-        {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
-            {
-                var sql = "SELECT [Id], [Name] FROM [Category]";
-                return await db.QueryAsync<Model.CategoryModel>(sql);
-            }
-        }
-
-        private List<SelectListItem> MapCategories(IEnumerable<Model.CategoryModel> categories)
+        private List<SelectListItem> MapCategories(IEnumerable<ViewModel.CategoryViewModel> categories)
         {
             return categories.Select(x => new SelectListItem
             {
@@ -50,16 +38,7 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
             }).ToList();
         }
 
-        private async Task<Model.QuestionModel> GetQuestion(IConfiguration configuration, int questionId)
-        {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DatabaseConnection")))
-            {
-                var sql = $"SELECT * FROM [vw_QuestionCreateUpdate] WHERE [QuestionId] = { questionId }";
-                return await db.QueryFirstAsync<Model.QuestionModel>(sql);
-            }
-        }
-
-        private void MarkCategorySelected(Model model)
+        private void MarkCategorySelected(ViewModel model)
         {
             var cat = model.Categories.FirstOrDefault(x => x.Value == model.Question.CategoryId.ToString());
             if (cat != null)

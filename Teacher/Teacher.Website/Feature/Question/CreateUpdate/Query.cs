@@ -2,8 +2,8 @@
 
 namespace Teacher.Website.Feature.Question.CreateUpdate
 {
-    public class Query : IRequest<Model>
+    public class Query : IRequest<ViewModel>
     {
-        public int? QuestionId { get; set; }
+        public int? Id { get; set; }
     }
 }

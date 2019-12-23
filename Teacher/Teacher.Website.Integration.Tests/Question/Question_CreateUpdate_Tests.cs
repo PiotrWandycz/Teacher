@@ -2,22 +2,22 @@
 using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.CreateUpdate;
+using Teacher.Website.Feature.Question.CreateUpdate;
 
 namespace Teacher.Website.Integration.Tests
 {
     [TestFixture]
-    public class Category_CreateUpdate_Tests : TestBase
+    public class Question_CreateUpdate_Tests : TestBase
     {
         [Test]
         public async Task OnGetAsync_should_work_in_a_happy_day_scenario()
         {
             var facade = GetService<IPageFacade>();
-            var query = new Query() { Id = 101 };
+            var query = new Query() { Id = 201 };
 
             var result = await facade.OnGetAsync(query);
 
-            result.Category.Name.ShouldBe("Cat 1");
+            result.Question.Content.ShouldBe("Que 1");
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Teacher.Website.Integration.Tests
             var facade = GetService<IPageFacade>();
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Name = "Cat 4" }
+                Question = new ViewModel.QuestionViewModel { CategoryId = 101, Content = "Que 5" }
             };
 
             var result = await facade.OnPostAsync(command);

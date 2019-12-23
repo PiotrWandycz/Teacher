@@ -16,6 +16,7 @@
     </environment>
     <link rel="stylesheet" href="~/css/bootstrap.litera.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-table.min.css" />
 </head>
 <body>
     <header>
@@ -32,7 +33,6 @@
             @RenderBody()
         </main>
     </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
@@ -52,7 +52,6 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
