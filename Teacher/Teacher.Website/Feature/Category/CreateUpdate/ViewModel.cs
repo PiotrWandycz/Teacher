@@ -21,11 +21,6 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 
             [Required]
             public string Name { get; set; }
-
-            public CategoryViewModel()
-            {
-                Name = string.Empty;
-            }
         }
     }
 }

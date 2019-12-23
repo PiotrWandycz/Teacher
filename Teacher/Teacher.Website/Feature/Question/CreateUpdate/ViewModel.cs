@@ -2,28 +2,27 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Teacher.Website.Enums;
 
 namespace Teacher.Website.Feature.Question.CreateUpdate
 {
-    public class Model
+    public class ViewModel
     {
         [BindProperty]
-        public QuestionModel Question { get; set; }
+        public QuestionViewModel Question { get; set; }
 
         public List<SelectListItem> Categories { get; set; }
 
-        public Model()
+        public ViewModel()
         {
-            Question = new QuestionModel();
+            Question = new QuestionViewModel();
             Categories = new List<SelectListItem>();
         }
 
-        public class QuestionModel
+        public class QuestionViewModel
         {
             [Required]
             [HiddenInput]
-            public int QuestionId { get; set; }
+            public int Id { get; set; }
 
             [Required]
             public int CategoryId { get; set; }
@@ -36,19 +35,11 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
             [Display(Name = "Treść pytania")]
             public string Content { get; set; }
 
-            [Display(Name = "Odpowiedź junior")]
-            public string AnswerJunior { get; set; }
-
-            [Display(Name = "Odpowiedź regular")]
-            public string AnswerRegular { get; set; }
-
-            [Display(Name = "Odpowiedź senior")]
-            public string AnswerSenior { get; set; }
-
-            public QuestionLevel Level { get; set; }
+            [Display(Name = "Odpowiedź")]
+            public string Answer { get; set; }
         }
 
-        public class CategoryModel
+        public class CategoryViewModel
         {
             public int Id { get; set; }
 

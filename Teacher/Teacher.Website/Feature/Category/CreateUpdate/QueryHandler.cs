@@ -18,9 +18,9 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         public async Task<ViewModel> Handle(Query query, CancellationToken cancellationToken)
         {
             var model = new ViewModel();
-            if (!query.CategoryId.HasValue)
+            if (!query.Id.HasValue)
                 return model;
-            model.Category = await _repository.GetCategoryAsync(query.CategoryId.Value); 
+            model.Category = await _repository.GetCategoryAsync(query.Id.Value); 
             return model;
         }
     }

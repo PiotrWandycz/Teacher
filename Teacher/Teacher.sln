@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teacher.Domain", "Teacher.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teacher.Domain.Tests", "Teacher.Domain.Tests\Teacher.Domain.Tests.csproj", "{E66BE6F1-B74D-4F97-8793-5D3896739A56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teacher.Website.Integration.Tests", "Teacher.Website.Integration.Tests\Teacher.Website.Integration.Tests.csproj", "{D062852E-E4A2-4FEE-9A1E-6ECE9C8417F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teacher.Website.Integration.Tests", "Teacher.Website.Integration.Tests\Teacher.Website.Integration.Tests.csproj", "{D062852E-E4A2-4FEE-9A1E-6ECE9C8417F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -23,13 +23,12 @@ namespace Teacher.Website.Feature.Tests.Category
 
             A.CallTo(() => repo.GetCategoryAsync(0)).MustNotHaveHappened();
             result.Category.Id.ShouldBe(0);
-            result.Category.Name.ShouldBe(string.Empty);
         }
 
         [Test]
         public async Task QueryHandler_should_return_a_category()
         {
-            var query = new Query() { CategoryId = 1 };
+            var query = new Query() { Id = 1 };
             var repo = A.Fake<IRepository>();
             A.CallTo(() => repo.GetCategoryAsync(1)).Returns(new ViewModel.CategoryViewModel() { Id = 1, Name = "Cat" });
             var handler = new QueryHandler(repo);

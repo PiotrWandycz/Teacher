@@ -6,13 +6,13 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
 {
     public class IndexModel : PageModel
     {
-        private readonly IFacade _facade;
+        private readonly IPageFacade _facade;
 
-        public IndexModel(IFacade facade)
+        public IndexModel(IPageFacade facade)
             => _facade = facade;
 
         [BindProperty]
-        public Model Data { get; set; }
+        public ViewModel Data { get; set; }
 
         public async Task OnGetAsync(Query query)
             => Data = await _facade.OnGetAsync(query);

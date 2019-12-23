@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Teacher.Website.Infrastructure.Database
 {
@@ -26,11 +28,20 @@ namespace Teacher.Website.Infrastructure.Database
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<VwQuestionCreateUpdate> VwQuestionCreateUpdate { get; set; }
+        public virtual DbSet<VwQuestionList> VwQuestionList { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Teacher;Trusted_Connection=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
-
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.HasIndex(e => e.RoleId);
@@ -48,8 +59,6 @@ namespace Teacher.Website.Infrastructure.Database
                     .HasName("RoleNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).HasMaxLength(256);
 
@@ -121,8 +130,6 @@ namespace Teacher.Website.Infrastructure.Database
                     .HasName("UserNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
@@ -197,7 +204,43 @@ namespace Teacher.Website.Infrastructure.Database
                 entity.Property(e => e.AspNetUserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.AspNetUser)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.AspNetUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_AspNetUsers");
             });
+
+            modelBuilder.Entity<VwQuestionCreateUpdate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_QuestionCreateUpdate");
+
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Content).IsRequired();
+            });
+
+            modelBuilder.Entity<VwQuestionList>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_QuestionList");
+
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Content).IsRequired();
+            });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

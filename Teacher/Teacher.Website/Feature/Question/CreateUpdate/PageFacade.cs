@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Teacher.Website.Feature.Question.CreateUpdate
 {
-    public class Facade : IFacade
+    public class PageFacade : IPageFacade
     {
         private readonly IMediator _mediator;
 
-        public Facade(IMediator mediator)
+        public PageFacade(IMediator mediator)
             => _mediator = mediator;
 
-        public async Task<Model> OnGetAsync(Query query)
+        public async Task<ViewModel> OnGetAsync(Query query)
             => await _mediator.Send(query);
 
         public async Task<IActionResult> OnPostAsync(Command command)

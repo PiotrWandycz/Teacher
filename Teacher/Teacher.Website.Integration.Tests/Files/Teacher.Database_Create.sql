@@ -221,23 +221,6 @@ CREATE TABLE [dbo].[Statistics] (
 
 
 GO
-PRINT N'Creating [dbo].[Question]...';
-
-
-GO
-CREATE TABLE [dbo].[Question] (
-    [Id]            INT            IDENTITY (1, 1) NOT NULL,
-    [CategoryId]    INT            NOT NULL,
-    [Content]       NVARCHAR (MAX) NOT NULL,
-    [Level]         TINYINT        NOT NULL,
-    [AnswerJunior]  NVARCHAR (MAX) NULL,
-    [AnswerRegular] NVARCHAR (MAX) NULL,
-    [AnswerSenior]  NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
 PRINT N'Creating [dbo].[LearningQuestion]...';
 
 
@@ -448,6 +431,20 @@ CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId]
 
 
 GO
+PRINT N'Creating [dbo].[Question]...';
+
+
+GO
+CREATE TABLE [dbo].[Question] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [CategoryId] INT            NOT NULL,
+    [Content]    NVARCHAR (MAX) NOT NULL,
+    [Answer]     NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
 PRINT N'Creating [dbo].[FK_User_AspNetUsers]...';
 
 
@@ -472,15 +469,6 @@ PRINT N'Creating [dbo].[FK_Statistics_User]...';
 GO
 ALTER TABLE [dbo].[Statistics]
     ADD CONSTRAINT [FK_Statistics_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_Question_Category]...';
-
-
-GO
-ALTER TABLE [dbo].[Question]
-    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]);
 
 
 GO
@@ -565,6 +553,15 @@ ALTER TABLE [dbo].[AspNetRoleClaims]
 
 
 GO
+PRINT N'Creating [dbo].[FK_Question_Category]...';
+
+
+GO
+ALTER TABLE [dbo].[Question]
+    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]);
+
+
+GO
 PRINT N'Creating [dbo].[AfterInsert_AspNetUsers]...';
 
 
@@ -580,24 +577,6 @@ BEGIN
       FROM   Inserted
 END
 GO
-PRINT N'Creating [dbo].[vw_QuestionList]...';
-
-
-GO
-CREATE VIEW
-	[dbo].[vw_QuestionList]
-	AS
-
-SELECT 
-Q.Id as QuestionId
-, C.Id as CategoryId
-, C.[Name] as CategoryName
-, Q.Content as Content
-, Q.[Level] as [Level]
-FROM Question Q
-INNER JOIN Category C
-ON Q.CategoryId = C.Id
-GO
 PRINT N'Creating [dbo].[vw_QuestionCreateUpdate]...';
 
 
@@ -611,10 +590,25 @@ Q.Id as QuestionId
 , C.Id as CategoryId
 , C.[Name] as CategoryName
 , Q.Content as Content
-, Q.[Level] as [Level]
-, Q.AnswerJunior as AnswerJunior
-, Q.AnswerRegular as AnswerRegular
-, Q.AnswerSenior as AnswerSenior
+, Q.Answer as Answer
+FROM Question Q
+INNER JOIN Category C
+ON Q.CategoryId = C.Id
+GO
+PRINT N'Creating [dbo].[vw_QuestionList]...';
+
+
+GO
+CREATE VIEW
+	[dbo].[vw_QuestionList]
+	AS
+
+SELECT 
+Q.Id as QuestionId
+, C.Id as CategoryId
+, C.[Name] as CategoryName
+, Q.Content as Content
+, Q.Answer as Answer
 FROM Question Q
 INNER JOIN Category C
 ON Q.CategoryId = C.Id
