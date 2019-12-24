@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     public class ViewModel
     {
@@ -16,7 +16,6 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         public class CategoryViewModel
         {
             [Required]
-            [Display()]
             public int Id { get; set; }
 
             [Required]

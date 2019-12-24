@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     public class Command : IRequest<Unit>
     {

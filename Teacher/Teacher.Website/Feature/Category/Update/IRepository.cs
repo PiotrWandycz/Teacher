@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Teacher.Website.Infrastructure;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<ViewModel.CategoryViewModel> GetCategoryAsync(int categoryId);
-        Task CreateCategoryAsync(string name);
+        Task<ViewModel.CategoryViewModel> GetCategoryAsync(int id);
         Task UpdateCategoryAsync(int id, string name);
     }
 }

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Create
 {
     class PageFacade : IPageFacade
     {
