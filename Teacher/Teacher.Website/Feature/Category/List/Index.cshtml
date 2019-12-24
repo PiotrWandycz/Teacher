@@ -1,12 +1,16 @@
 ﻿@page
 @model Category.List.IndexModel
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "Kategorie";
 }
 
-<h4>Kategorie <a asp-page="CreateUpdate">Dodaj</a></h4>
+<h4>@ViewData["Title"] <a href="/Category/CreateUpdate">Dodaj</a></h4>
 
 @foreach (var category in Model.Data.Categories)
 {
-    <div>@category.Name <a asp-page="CreateUpdate" asp-route-CategoryId="@category.Id">Zmień</a></div>
+<div>
+    @category.Name
+    <a href="/Category/CreateUpdate/@category.Id">Zmień</a>
+    <a href="/Category/Delete/@category.Id" class="btn btn-danger-outline">Usuń</a>
+</div>
 }

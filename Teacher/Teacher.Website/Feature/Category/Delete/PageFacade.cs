@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Delete
 {
     class PageFacade : IPageFacade
     {
@@ -11,10 +11,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         public PageFacade(IMediator mediator)
             => _mediator = mediator;
 
-        public async Task<ViewModel> OnGetAsync(Query query)
-            => await _mediator.Send(query);
-
-        public async Task<IActionResult> OnPostAsync(Command command)
+        public async Task<IActionResult> OnGetAsync(Command command)
         {
             await _mediator.Send(command);
             return new RedirectResult("/Category/List");
