@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Teacher.Website.Infrastructure;
 
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     public interface IPageFacade : IPageFacadeMarker
     {

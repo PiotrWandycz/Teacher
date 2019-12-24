@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     internal class CommandHandler : IRequestHandler<Command, Unit>
     {
@@ -17,10 +17,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
 
         public async Task<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
-            if (command.Category.Id > 0)
-                await _repository.UpdateCategoryAsync(command.Category.Id, command.Category.Name);
-            else
-                await _repository.CreateCategoryAsync(command.Category.Name);
+            await _repository.UpdateCategoryAsync(command.Category.Id, command.Category.Name);
             return Unit.Value;
         }
     }

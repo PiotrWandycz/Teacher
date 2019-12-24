@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
-namespace Teacher.Website.Feature.Category.CreateUpdate
+namespace Teacher.Website.Feature.Category.Update
 {
     internal class QueryHandler : IRequestHandler<Query, ViewModel>
     {
@@ -18,9 +18,7 @@ namespace Teacher.Website.Feature.Category.CreateUpdate
         public async Task<ViewModel> Handle(Query query, CancellationToken cancellationToken)
         {
             var model = new ViewModel();
-            if (!query.Id.HasValue)
-                return model;
-            model.Category = await _repository.GetCategoryAsync(query.Id.Value); 
+            model.Category = await _repository.GetCategoryAsync(query.Id); 
             return model;
         }
     }
