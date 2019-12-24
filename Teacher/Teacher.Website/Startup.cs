@@ -25,6 +25,10 @@ namespace Teacher.Website
             ConfigureRazorPages(services);
             ConfigureDatabase(services);
             ConfigureApp(services);
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
         }
 
         private void ConfigureRazorPages(IServiceCollection services)
@@ -77,6 +81,7 @@ namespace Teacher.Website
 
             app.UseAuthentication();
             app.UseRouting();
+            app.UseMvc();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

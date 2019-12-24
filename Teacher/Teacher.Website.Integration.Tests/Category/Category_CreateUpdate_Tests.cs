@@ -31,8 +31,8 @@ namespace Teacher.Website.Integration.Tests
 
             var result = await facade.OnPostAsync(command);
 
-            result.ShouldBeOfType<RedirectToPageResult>();
-            ((RedirectToPageResult)result).PageName.ShouldBe("List");
+            result.ShouldBeOfType<RedirectResult>();
+            ((RedirectResult)result).Url.ShouldBe("/Category/List");
         }
     }
 }

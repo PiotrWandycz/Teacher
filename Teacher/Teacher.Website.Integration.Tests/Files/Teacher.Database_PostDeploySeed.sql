@@ -9,6 +9,9 @@ VALUES(102, 'Cat 2', 21);
 INSERT INTO [dbo].[Category]([Id], [Name], [ItemOrder])
 VALUES(103, 'Cat 3', 22);
 
+INSERT INTO [dbo].[Category]([Id], [Name], [ItemOrder])
+VALUES(9101, 'Cat 4', 24);
+
 SET IDENTITY_INSERT [dbo].[Category] OFF;
 
 
