@@ -1,14 +1,7 @@
-﻿@page "{Id:int?}"
-@model Question.CreateUpdate.IndexModel
-@if (Model.Data.Question.Id > 0)
-{
-    ViewData["Title"] = "Edytuj pytanie";
-}
-else
-{
-    ViewData["Title"] = "Dodaj pytanie";
-}
-
+﻿@page "{Id:int}"
+@model Question.Update.IndexModel
+    
+@ViewData["Title"] = "Edytuj pytanie";
 <h4>@ViewData["Title"]</h4>
 
 <div class="row d-flex justify-content-center">
@@ -29,20 +22,9 @@ else
                     <input asp-for="Data.Question.Answer" class="form-control" />
                 </div>
                 <div class="center">
-                    @if (Model.Data.Question.Id > 0)
-                    {
-                        <button type="submit" name="edit" class="btn btn-primary">Zmień</button>
-                    }
-                    else
-                    {
-                        <button type="submit" name="edit" class="btn btn-primary">Dodaj</button>
-                    }
+                    <button type="submit" name="edit" class="btn btn-primary">Zmień</button>
                 </div>
             </form>
-            @*@if (Model.Data.Question.QuestionId > 0)
-                {
-                    <a class="btn btn-danger" asp-page="Delete" asp-route-QuestionId="@Model.Data.Question.QuestionId">Usuń</a>
-                }*@
         </section>
     </div>
 </div>

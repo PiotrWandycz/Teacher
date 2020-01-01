@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Create
 {
     public class Command : IRequest
     {

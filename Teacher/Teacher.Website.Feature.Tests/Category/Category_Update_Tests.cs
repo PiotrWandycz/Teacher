@@ -28,7 +28,7 @@ namespace Teacher.Website.Feature.Tests.Category
         }
 
         [Test]
-        public async Task CommandHandler_should_update_existing_category_name()
+        public async Task CommandHandler_should_update_existing_category()
         {
             var command = new Command
             {
