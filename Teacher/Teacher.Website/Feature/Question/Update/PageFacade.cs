@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Update
 {
     public class PageFacade : IPageFacade
     {
@@ -17,7 +17,7 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
         public async Task<IActionResult> OnPostAsync(Command command)
         {
             await _mediator.Send(command);
-            return new RedirectToPageResult("List");
+            return new RedirectResult("/Question/List");
         }
     }
 }

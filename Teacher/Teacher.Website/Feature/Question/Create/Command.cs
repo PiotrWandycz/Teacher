@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Create
 {
-    public class Command : IRequest<Unit>
+    public class Command : IRequest
     {
         public ViewModel.QuestionViewModel Question { get; set; }
     }

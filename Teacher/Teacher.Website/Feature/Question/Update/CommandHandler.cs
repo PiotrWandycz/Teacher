@@ -1,10 +1,10 @@
-using MediatR;
+﻿using MediatR;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
-namespace Teacher.Website.Feature.Category.Delete
+namespace Teacher.Website.Feature.Question.Update
 {
     internal class CommandHandler : IRequestHandler<Command>
     {
@@ -17,7 +17,7 @@ namespace Teacher.Website.Feature.Category.Delete
 
         public async Task<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
-            await _repository.DeleteCategoryAsync(command.Id);
+            await _repository.UpdateQuestionAsync(command.Question);
             return Unit.Value;
         }
     }

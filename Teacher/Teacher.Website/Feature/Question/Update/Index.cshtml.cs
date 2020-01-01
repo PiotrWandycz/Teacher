@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Update
 {
     public class IndexModel : PageModel
     {

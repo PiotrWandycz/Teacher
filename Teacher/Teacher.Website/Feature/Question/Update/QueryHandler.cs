@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Update
 {
     internal class QueryHandler : IRequestHandler<Query, ViewModel>
     {
@@ -22,9 +22,7 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
         {
             var model = new ViewModel();
             model.Categories = await _repository.GetCategoriesAsync().ContinueWith(x => MapCategories(x.Result));
-            if (!query.Id.HasValue)
-                return model;
-            model.Question = await _repository.GetQuestionAsync(query.Id.Value);
+            model.Question = await _repository.GetQuestionAsync(query.Id);
             MarkCategorySelected(model);
             return model;
         }

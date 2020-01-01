@@ -437,7 +437,7 @@ PRINT N'Creating [dbo].[Question]...';
 GO
 CREATE TABLE [dbo].[Question] (
     [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [CategoryId] INT            NOT NULL,
+    [CategoryId] INT            NULL,
     [Content]    NVARCHAR (MAX) NOT NULL,
     [Answer]     NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -577,12 +577,12 @@ BEGIN
       FROM   Inserted
 END
 GO
-PRINT N'Creating [dbo].[vw_QuestionCreateUpdate]...';
+PRINT N'Creating [dbo].[vw_QuestionList]...';
 
 
 GO
 CREATE VIEW
-	[dbo].[vw_QuestionCreateUpdate]
+	[dbo].[vw_QuestionList]
 	AS
 
 SELECT 
@@ -595,12 +595,12 @@ FROM Question Q
 INNER JOIN Category C
 ON Q.CategoryId = C.Id
 GO
-PRINT N'Creating [dbo].[vw_QuestionList]...';
+PRINT N'Creating [dbo].[vw_QuestionCreateUpdate]...';
 
 
 GO
 CREATE VIEW
-	[dbo].[vw_QuestionList]
+	[dbo].[vw_QuestionCreateUpdate]
 	AS
 
 SELECT 

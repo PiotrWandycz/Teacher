@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Teacher.Website.Feature.Question.CreateUpdate
+namespace Teacher.Website.Feature.Question.Create
 {
     public class ViewModel
     {
@@ -20,10 +20,6 @@ namespace Teacher.Website.Feature.Question.CreateUpdate
 
         public class QuestionViewModel
         {
-            [Required]
-            [HiddenInput]
-            public int Id { get; set; }
-
             [Required]
             public int CategoryId { get; set; }
 

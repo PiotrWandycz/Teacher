@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Teacher.Website.Feature.Tests")]
 namespace Teacher.Website.Feature.Category.Update
 {
-    internal class CommandHandler : IRequestHandler<Command, Unit>
+    internal class CommandHandler : IRequestHandler<Command>
     {
         private readonly IRepository _repository;
 
