@@ -1,0 +1,16 @@
+﻿@page
+@model Category.List.IndexModel
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+<h4>@ViewData["Title"] <a href="/Category/Create">Dodaj</a></h4>
+
+@foreach (var category in Model.Data.Categories)
+{
+<div>
+    @category.Name
+    <a href="/Category/Update/@category.Id">Zmień</a>
+    <a href="/Category/Delete/@category.Id" class="btn btn-danger-outline">Usuń</a>
+</div>
+}

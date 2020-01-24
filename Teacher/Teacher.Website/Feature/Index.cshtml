@@ -1,0 +1,15 @@
+﻿@page
+@model Teacher.Website.Pages.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4" style="margin-top: 100px;">
+        <a class="btn btn-outline-primary btn-block" asp-page="Learn">Test</a>
+        <a class="btn btn-outline-primary btn-block" asp-page="Learn">Nauka</a>
+        <a class="btn btn-outline-info btn-block mt-md-4" asp-page="Learn">Statystyki</a>
+        <a class="btn btn-outline-warning btn-block mt-md-4" href="/Question/List">Edytuj pytania</a>
+        <a class="btn btn-outline-warning btn-block" href="/Category/List">Edytuj kategorie</a>
+    </div>
+</div>
