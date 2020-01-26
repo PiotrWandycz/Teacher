@@ -8,7 +8,7 @@ namespace Teacher.Domain.CalculateAnswerOccurences
 {
     class AnswerOccurenceCalculator : IAnswerOccurenceCalculator
     {
-        private List<AnswerOccurence> _occurences;
+        private readonly List<AnswerOccurence> _occurences;
 
         public AnswerOccurenceCalculator()
         {

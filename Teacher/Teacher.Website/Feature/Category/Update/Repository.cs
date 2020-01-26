@@ -18,7 +18,7 @@ namespace Teacher.Website.Feature.Category.Update
             _dbContext = dbContext;
         }
 
-        public async Task<ViewModel.CategoryViewModel> GetCategoryAsync(int categoryId)
+        public async Task<ViewModel.CategoryViewModel> GetCategoryAsync(int id)
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {

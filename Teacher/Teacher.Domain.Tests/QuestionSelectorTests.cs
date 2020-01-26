@@ -2,7 +2,6 @@
 using Shouldly;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Teacher.Domain.DomainObjects;
 using Teacher.Domain.SelectQuestions;
 

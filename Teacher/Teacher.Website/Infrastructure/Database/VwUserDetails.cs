@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Teacher.Website.Infrastructure.Database
+﻿namespace Teacher.Website.Infrastructure.Database
 {
     public partial class VwUserDetails
     {

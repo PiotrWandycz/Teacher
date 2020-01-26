@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Teacher.Domain.Infrastructure;
+﻿using Teacher.Domain.Infrastructure;
 
 namespace Teacher.Domain.CalculateAnswerStreak
 {

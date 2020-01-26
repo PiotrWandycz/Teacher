@@ -14,7 +14,6 @@ using System.Data.SqlClient;
 using Teacher.Website.Infrastructure;
 using Dapper;
 using System.Security.Claims;
-using System;
 
 namespace Teacher.Website.Areas.Identity.Pages.Account
 {
