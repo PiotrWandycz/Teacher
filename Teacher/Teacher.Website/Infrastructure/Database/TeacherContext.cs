@@ -15,6 +15,7 @@ namespace Teacher.Website.Infrastructure.Database
         {
         }
 
+        public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -23,25 +24,37 @@ namespace Teacher.Website.Infrastructure.Database
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Learning> Learning { get; set; }
-        public virtual DbSet<LearningQuestion> LearningQuestion { get; set; }
         public virtual DbSet<Question> Question { get; set; }
-        public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<VwQuestionCreateUpdate> VwQuestionCreateUpdate { get; set; }
-        public virtual DbSet<VwQuestionList> VwQuestionList { get; set; }
+        public virtual DbSet<VwQuestionDetails> VwQuestionDetails { get; set; }
+        public virtual DbSet<VwUserDetails> VwUserDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Teacher;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQL17;Database=Teacher.Database;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Answer>(entity =>
+            {
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.AnswerNavigation)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_Question");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Answer)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_User");
+            });
+
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.HasIndex(e => e.RoleId);
@@ -147,32 +160,6 @@ namespace Teacher.Website.Infrastructure.Database
                     .HasMaxLength(128);
             });
 
-            modelBuilder.Entity<Learning>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Learning)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Learning_User");
-            });
-
-            modelBuilder.Entity<LearningQuestion>(entity =>
-            {
-                entity.HasOne(d => d.Learning)
-                    .WithMany(p => p.LearningQuestion)
-                    .HasForeignKey(d => d.LearningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LearningQuestion_Learning");
-
-                entity.HasOne(d => d.Question)
-                    .WithMany(p => p.LearningQuestion)
-                    .HasForeignKey(d => d.QuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LearningQuestion_Question");
-            });
-
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.Property(e => e.Content).IsRequired();
@@ -180,23 +167,7 @@ namespace Teacher.Website.Infrastructure.Database
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Question)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Question_Category");
-            });
-
-            modelBuilder.Entity<Statistics>(entity =>
-            {
-                entity.HasOne(d => d.Learning)
-                    .WithMany(p => p.Statistics)
-                    .HasForeignKey(d => d.LearningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Statistics_Learning");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Statistics)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Statistics_User");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -212,11 +183,11 @@ namespace Teacher.Website.Infrastructure.Database
                     .HasConstraintName("FK_User_AspNetUsers");
             });
 
-            modelBuilder.Entity<VwQuestionCreateUpdate>(entity =>
+            modelBuilder.Entity<VwQuestionDetails>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_QuestionCreateUpdate");
+                entity.ToView("vw_QuestionDetails");
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
@@ -225,17 +196,17 @@ namespace Teacher.Website.Infrastructure.Database
                 entity.Property(e => e.Content).IsRequired();
             });
 
-            modelBuilder.Entity<VwQuestionList>(entity =>
+            modelBuilder.Entity<VwUserDetails>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_QuestionList");
+                entity.ToView("vw_UserDetails");
 
-                entity.Property(e => e.CategoryName)
+                entity.Property(e => e.AspNetUserId)
                     .IsRequired()
-                    .HasMaxLength(128);
+                    .HasMaxLength(450);
 
-                entity.Property(e => e.Content).IsRequired();
+                entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Teacher.Website.Infrastructure.Database
+﻿namespace Teacher.Website.Feature.Question.List
 {
-    public partial class VwQuestionList
+    public class vw_QuestionDetails
     {
         public int QuestionId { get; set; }
         public int CategoryId { get; set; }

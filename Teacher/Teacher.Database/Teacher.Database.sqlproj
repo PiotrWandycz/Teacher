@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{d23b9615-1097-4462-a0c6-4d9353856130}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -71,13 +71,11 @@
     <Build Include="dbo\Tables\AspNetUsers.sql" />
     <Build Include="dbo\Tables\AspNetUserTokens.sql" />
     <Build Include="dbo\Tables\Category.sql" />
-    <Build Include="dbo\Tables\Learning.sql" />
-    <Build Include="dbo\Tables\LearningQuestion.sql" />
     <Build Include="dbo\Tables\Question.sql" />
-    <Build Include="dbo\Tables\Statistics.sql" />
     <Build Include="dbo\Tables\User.sql" />
-    <Build Include="dbo\Views\vw_QuestionCreateUpdate.sql" />
-    <Build Include="dbo\Views\vw_QuestionList.sql" />
+    <Build Include="dbo\Tables\Answer.sql" />
+    <Build Include="dbo\Views\vw_QuestionDetails.sql" />
+    <Build Include="dbo\Views\vw_UserDetails.sql" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Teacher.Database_Create.sql" "$(SolutionDir)\Teacher.Website.Integration.Tests\Files" /Y</PostBuildEvent>

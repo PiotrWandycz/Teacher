@@ -1,6 +1,6 @@
-﻿namespace Teacher.Website.Feature.Question.List
+﻿namespace Teacher.Website.Feature.Interview.Answer
 {
-    public class vw_QuestionList
+    public class vw_QuestionDetails
     {
         public int QuestionId { get; set; }
         public int CategoryId { get; set; }

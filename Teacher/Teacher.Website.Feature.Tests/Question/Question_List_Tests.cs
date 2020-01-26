@@ -32,11 +32,11 @@ namespace Teacher.Website.Feature.Tests.Question
         {
             var query = new Query();
             var repo = A.Fake<IRepository>();
-            A.CallTo(() => repo.GetQuestionsAsync()).Returns(new List<vw_QuestionList>
+            A.CallTo(() => repo.GetQuestionsAsync()).Returns(new List<vw_QuestionDetails>
             {
-                new vw_QuestionList { QuestionId = 101, CategoryId = 10, CategoryName = "Cat1", Content = "Que1", Answer = "Ans1" },
-                new vw_QuestionList { QuestionId = 102, CategoryId = 10, CategoryName = "Cat1", Content = "Que2", Answer = "Ans2" },
-                new vw_QuestionList { QuestionId = 103, CategoryId = 11, CategoryName = "Cat2", Content = "Que3", Answer = null }
+                new vw_QuestionDetails { QuestionId = 101, CategoryId = 10, CategoryName = "Cat1", Content = "Que1", Answer = "Ans1" },
+                new vw_QuestionDetails { QuestionId = 102, CategoryId = 10, CategoryName = "Cat1", Content = "Que2", Answer = "Ans2" },
+                new vw_QuestionDetails { QuestionId = 103, CategoryId = 11, CategoryName = "Cat2", Content = "Que3", Answer = null }
             });
             var handler = new QueryHandler(repo);
 

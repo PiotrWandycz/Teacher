@@ -31,7 +31,7 @@ namespace Teacher.Website.Feature.Question.Update
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT * FROM [vw_QuestionCreateUpdate] WHERE [QuestionId] = { questionId }";
+                var sql = $"SELECT * FROM [vw_QuestionDetails] WHERE [QuestionId] = { questionId }";
                 return await db.QueryFirstAsync<ViewModel.QuestionViewModel>(sql);
             }
         }

@@ -6,6 +6,6 @@ namespace Teacher.Website.Feature.Question.List
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<IEnumerable<vw_QuestionList>> GetQuestionsAsync();
+        Task<IEnumerable<vw_QuestionDetails>> GetQuestionsAsync();
     }
 }

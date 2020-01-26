@@ -16,6 +16,7 @@ namespace Teacher.Website.Feature.Category.Create
         public class CategoryViewModel
         {
             [Required]
+            [Display(Name = "Nazwa")]
             public string Name { get; set; }
         }
     }

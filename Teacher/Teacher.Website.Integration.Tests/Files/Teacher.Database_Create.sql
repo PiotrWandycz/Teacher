@@ -187,6 +187,55 @@ IF EXISTS (SELECT 1
 
 
 GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET QUERY_STORE (QUERY_CAPTURE_MODE = ALL, DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_PLANS_PER_QUERY = 200, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 367), MAX_STORAGE_SIZE_MB = 100) 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET QUERY_STORE = OFF 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET TEMPORAL_HISTORY_RETENTION ON 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
 IF fulltextserviceproperty(N'IsFulltextInstalled') = 1
     EXECUTE sp_fulltext_database 'enable';
 
@@ -204,46 +253,16 @@ CREATE TABLE [dbo].[User] (
 
 
 GO
-PRINT N'Creating [dbo].[Statistics]...';
+PRINT N'Creating [dbo].[Question]...';
 
 
 GO
-CREATE TABLE [dbo].[Statistics] (
-    [Id]                INT           IDENTITY (1, 1) NOT NULL,
-    [UserId]            INT           NOT NULL,
-    [LearningId]        INT           NOT NULL,
-    [Date]              DATETIME2 (7) NOT NULL,
-    [QuestionsAnswered] INT           NOT NULL,
-    [CorrectAnswers]    INT           NOT NULL,
-    [IncorrectAnswers]  INT           NOT NULL,
-    CONSTRAINT [PK_Statistics] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[LearningQuestion]...';
-
-
-GO
-CREATE TABLE [dbo].[LearningQuestion] (
-    [Id]               INT IDENTITY (1, 1) NOT NULL,
-    [LearningId]       INT NOT NULL,
-    [QuestionId]       INT NOT NULL,
-    [WasAnswerCorrect] BIT NOT NULL,
-    CONSTRAINT [PK_LearningQuestion] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[Learning]...';
-
-
-GO
-CREATE TABLE [dbo].[Learning] (
-    [Id]     INT           NOT NULL,
-    [UserId] INT           NOT NULL,
-    [Date]   DATETIME2 (7) NOT NULL,
-    CONSTRAINT [PK_Learning] PRIMARY KEY CLUSTERED ([Id] ASC)
+CREATE TABLE [dbo].[Question] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [CategoryId] INT            NULL,
+    [Content]    NVARCHAR (MAX) NOT NULL,
+    [Answer]     NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -431,16 +450,17 @@ CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId]
 
 
 GO
-PRINT N'Creating [dbo].[Question]...';
+PRINT N'Creating [dbo].[Answer]...';
 
 
 GO
-CREATE TABLE [dbo].[Question] (
-    [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [CategoryId] INT            NULL,
-    [Content]    NVARCHAR (MAX) NOT NULL,
-    [Answer]     NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED ([Id] ASC)
+CREATE TABLE [dbo].[Answer] (
+    [Id]               INT           IDENTITY (1, 1) NOT NULL,
+    [QuestionId]       INT           NOT NULL,
+    [UserId]           INT           NOT NULL,
+    [AnsweredAt]       DATETIME2 (7) NOT NULL,
+    [WasAnswerCorrect] TINYINT       NOT NULL,
+    CONSTRAINT [PK_Answer] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -454,48 +474,12 @@ ALTER TABLE [dbo].[User]
 
 
 GO
-PRINT N'Creating [dbo].[FK_Statistics_Learning]...';
+PRINT N'Creating [dbo].[FK_Question_Category]...';
 
 
 GO
-ALTER TABLE [dbo].[Statistics]
-    ADD CONSTRAINT [FK_Statistics_Learning] FOREIGN KEY ([LearningId]) REFERENCES [dbo].[Learning] ([Id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_Statistics_User]...';
-
-
-GO
-ALTER TABLE [dbo].[Statistics]
-    ADD CONSTRAINT [FK_Statistics_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_LearningQuestion_Learning]...';
-
-
-GO
-ALTER TABLE [dbo].[LearningQuestion]
-    ADD CONSTRAINT [FK_LearningQuestion_Learning] FOREIGN KEY ([LearningId]) REFERENCES [dbo].[Learning] ([Id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_LearningQuestion_Question]...';
-
-
-GO
-ALTER TABLE [dbo].[LearningQuestion]
-    ADD CONSTRAINT [FK_LearningQuestion_Question] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question] ([Id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_Learning_User]...';
-
-
-GO
-ALTER TABLE [dbo].[Learning]
-    ADD CONSTRAINT [FK_Learning_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
+ALTER TABLE [dbo].[Question]
+    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]);
 
 
 GO
@@ -553,12 +537,21 @@ ALTER TABLE [dbo].[AspNetRoleClaims]
 
 
 GO
-PRINT N'Creating [dbo].[FK_Question_Category]...';
+PRINT N'Creating [dbo].[FK_Answer_Question]...';
 
 
 GO
-ALTER TABLE [dbo].[Question]
-    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]);
+ALTER TABLE [dbo].[Answer]
+    ADD CONSTRAINT [FK_Answer_Question] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question] ([Id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_Answer_User]...';
+
+
+GO
+ALTER TABLE [dbo].[Answer]
+    ADD CONSTRAINT [FK_Answer_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
 
 
 GO
@@ -577,12 +570,12 @@ BEGIN
       FROM   Inserted
 END
 GO
-PRINT N'Creating [dbo].[vw_QuestionList]...';
+PRINT N'Creating [dbo].[vw_QuestionDetails]...';
 
 
 GO
 CREATE VIEW
-	[dbo].[vw_QuestionList]
+	[dbo].[vw_QuestionDetails]
 	AS
 
 SELECT 
@@ -595,23 +588,21 @@ FROM Question Q
 INNER JOIN Category C
 ON Q.CategoryId = C.Id
 GO
-PRINT N'Creating [dbo].[vw_QuestionCreateUpdate]...';
+PRINT N'Creating [dbo].[vw_UserDetails]...';
 
 
 GO
 CREATE VIEW
-	[dbo].[vw_QuestionCreateUpdate]
+	[dbo].[vw_UserDetails]
 	AS
 
 SELECT 
-Q.Id as QuestionId
-, C.Id as CategoryId
-, C.[Name] as CategoryName
-, Q.Content as Content
-, Q.Answer as Answer
-FROM Question Q
-INNER JOIN Category C
-ON Q.CategoryId = C.Id
+ANU.Id as AspNetUserId
+, U.Id as UserId
+, ANU.UserName as UserName
+FROM AspNetUsers ANU
+INNER JOIN [User] U
+ON ANU.Id = U.AspNetUserId
 GO
 DECLARE @VarDecimalSupported AS BIT;
 

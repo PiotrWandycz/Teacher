@@ -25,7 +25,7 @@ namespace Teacher.Website.Feature.Question.List
             return model;
         }
 
-        private IEnumerable<ViewModel.QuestionViewModel> MapQuestions(IEnumerable<vw_QuestionList> questions)
+        private IEnumerable<ViewModel.QuestionViewModel> MapQuestions(IEnumerable<vw_QuestionDetails> questions)
         {
             return questions.Select(x => new ViewModel.QuestionViewModel
             {

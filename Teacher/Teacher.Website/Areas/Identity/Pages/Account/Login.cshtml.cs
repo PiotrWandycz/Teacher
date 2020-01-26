@@ -8,6 +8,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MediatR;
+using System.Threading;
+using System.Data.SqlClient;
+using Teacher.Website.Infrastructure;
+using Dapper;
+using System.Security.Claims;
+using System;
 
 namespace Teacher.Website.Areas.Identity.Pages.Account
 {
@@ -15,12 +22,16 @@ namespace Teacher.Website.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IMediator _mediator;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<LoginModel> logger, IMediator mediator)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
+            _mediator = mediator;
         }
 
         [BindProperty]
@@ -72,6 +83,9 @@ namespace Teacher.Website.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var userId = await _mediator.Send(new Query { Username = Input.Login });
+                    var user = await _userManager.FindByNameAsync(Input.Login);
+                    await AddClaimAsync(user, "UserId", userId.ToString());
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -92,6 +106,38 @@ namespace Teacher.Website.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private async Task AddClaimAsync(IdentityUser user, string key, string value)
+        {
+            var claims = await _userManager.GetClaimsAsync(user);
+            if (claims.Any(x => x.Type == key))
+                await _userManager.RemoveClaimsAsync(user, claims.Where(x => x.Type == key));
+            await _userManager.AddClaimAsync(user, new Claim(key, value));
+        }
+
+        public class Query : IRequest<int>
+        {
+            public string Username{ get; set; }
+        }
+
+        internal class QueryHandler : IRequestHandler<Query, int>
+        {
+            private readonly IConnectionStringFactory _connectionStringFactory;
+
+            public QueryHandler(IConnectionStringFactory connectionStringFactory)
+            {
+                _connectionStringFactory = connectionStringFactory;
+            }
+
+            public async Task<int> Handle(Query query, CancellationToken cancellationToken)
+            {
+                using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
+                {
+                    var sql = $"SELECT UserId FROM [vw_UserDetails]";
+                    return await db.QueryFirstAsync<int>(sql);
+                }
+            }
         }
     }
 }

@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Teacher.Website.Infrastructure.Database;
 using Teacher.Website.Infrastructure;
+using Teacher.Domain.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using Teacher.Website.Infrastructure.Mediatr;
 
 namespace Teacher.Website
 {
@@ -25,10 +28,7 @@ namespace Teacher.Website
             ConfigureRazorPages(services);
             ConfigureDatabase(services);
             ConfigureApp(services);
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            });
+            ConfigureMediatR(services);
         }
 
         private void ConfigureRazorPages(IServiceCollection services)
@@ -37,6 +37,12 @@ namespace Teacher.Website
                 .AddRazorPagesOptions(options => { options.RootDirectory = "/Feature"; });
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<IdentityContext>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
         }
 
         private void ConfigureDatabase(IServiceCollection services)
@@ -60,7 +66,13 @@ namespace Teacher.Website
                 .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+            services.RegisterDomain();
+        }
+
+        private void ConfigureMediatR(IServiceCollection services)
+        {
             services.AddMediatR(typeof(Startup).Assembly);
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineBehavior<,>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

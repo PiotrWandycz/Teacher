@@ -1,11 +1,11 @@
 ﻿@page
 @model Question.List.IndexModel
 @{
-    ViewData["Title"] = "Pytania";
+    ViewData["Title"] = "Lista pytań";
 }
 
 <h4>@ViewData["Title"]</h4>
-<a class="btn btn-outline-primary" style="position:absolute; margin-top:15px;" asp-page="CreateUpdate">Dodaj nowe</a>
+<a class="btn btn-outline-primary" style="position:absolute; margin-top:15px;" href="/Question/Create">Dodaj nowe</a>
 
 <table class="table table-striped"
        data-toggle="table" data-pagination="true" data-search="true">
@@ -15,6 +15,7 @@
             <th scope="col">Pytanie</th>
             <th scope="col">Czy ma odpowiedź?</th>
             <th scope="col">Edycja</th>
+            <th scope="col">Usuwanie</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +32,8 @@
                 {
                     <td>-tak-</td>
                 }
-                <td><a asp-page="CreateUpdate" asp-route-Id="@question.Id">Zmień</a></td>
+                <td><u><a href="/Question/Update/@question.Id">Zmień</a></u></td>
+                <td><u><a href="/Question/Delete/@question.Id">Usuń</a></u></td>
             </tr>
         }
     </tbody>

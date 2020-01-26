@@ -1,5 +1,5 @@
 ﻿CREATE VIEW
-	[dbo].[vw_QuestionList]
+	[dbo].[vw_QuestionDetails]
 	AS
 
 SELECT 

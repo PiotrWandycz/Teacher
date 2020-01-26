@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Teacher.Website.Infrastructure.Database
 {
-    public partial class VwQuestionCreateUpdate
+    public partial class VwQuestionDetails
     {
         public int QuestionId { get; set; }
         public int CategoryId { get; set; }

@@ -28,8 +28,8 @@
     <PackageReference Include="com.rusanu.DBUtil" Version="1.5.6198.25619" />
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="FakeItEasy" Version="5.5.0" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="MediatR" Version="8.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />

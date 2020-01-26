@@ -1,3 +1,11 @@
-﻿.center{
+﻿.center {
     text-align: center !important;
 }
+
+.link-danger {
+    color: #d9534f;
+}
+
+    .link-danger:hover {
+        color: #c73531;
+    }

@@ -15,12 +15,12 @@ namespace Teacher.Website.Feature.Question.List
             _connectionStringFactory = connectionStringFactory;
         }
 
-        public async Task<IEnumerable<vw_QuestionList>> GetQuestionsAsync()
+        public async Task<IEnumerable<vw_QuestionDetails>> GetQuestionsAsync()
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = "SELECT * FROM [vw_QuestionList]";
-                return await db.QueryAsync<vw_QuestionList>(sql);
+                var sql = "SELECT * FROM [vw_QuestionDetails]";
+                return await db.QueryAsync<vw_QuestionDetails>(sql);
             }
         }
     }
