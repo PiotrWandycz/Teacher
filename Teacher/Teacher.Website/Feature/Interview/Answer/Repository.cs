@@ -1,18 +1,22 @@
 ﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Teacher.Website.Infrastructure;
+using Teacher.Website.Infrastructure.Database;
 
 namespace Teacher.Website.Feature.Interview.Answer
 {
     class Repository : IRepository
     {
         private readonly IConnectionStringFactory _connectionStringFactory;
+        private readonly TeacherContext _dbContext;
 
-        public Repository(IConnectionStringFactory connectionStringFactory)
+        public Repository(IConnectionStringFactory connectionStringFactory, TeacherContext dbContext)
         {
             _connectionStringFactory = connectionStringFactory;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<int>> GetQuestionIdsAsync()
@@ -42,9 +46,17 @@ namespace Teacher.Website.Feature.Interview.Answer
             }
         }
 
-        public Task CreateAnswerAsync(Command command)
+        public async Task CreateAnswerAsync(Command command)
         {
-            throw new System.NotImplementedException();
+            var answer = new Infrastructure.Database.Answer
+            {
+                QuestionId = command.QuestionId,
+                UserId = command.UserId,
+                WasAnswerCorrect = command.WasAnswerCorrect,
+                AnsweredAt = DateTime.UtcNow
+            };
+            await _dbContext.Answer.AddAsync(answer);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

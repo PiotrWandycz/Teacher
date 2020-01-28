@@ -33,7 +33,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         public async Task<IActionResult> OnPostAsync()
             => await _facade.OnPostAsync(new Command 
             {
-                QuestionId = Data.Question.Id,
+                QuestionId = Data.Answer.QuestionId,
                 UserId = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst("UserId").Value),
                 WasAnswerCorrect = Data.Answer.WasAnswerCorrect
             });

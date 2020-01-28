@@ -22,7 +22,7 @@ namespace Teacher.Website.Feature.Category.Update
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT [Id], [Name] FROM [Category] WHERE [Id] = { categoryId }";
+                var sql = $"SELECT [Id], [Name] FROM [Category] WHERE [Id] = { id }";
                 return await db.QueryFirstAsync<ViewModel.CategoryViewModel>(sql);
             }
         }

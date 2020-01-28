@@ -17,7 +17,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         public async Task<IActionResult> OnPostAsync(Command command)
         {
             await _mediator.Send(command);
-            return new RedirectResult("/Question/List");
+            return new RedirectResult("/Interview/Answer");
         }
     }
 }

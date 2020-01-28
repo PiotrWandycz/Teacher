@@ -8,7 +8,7 @@ namespace Teacher.Website.Infrastructure.Database
         public int QuestionId { get; set; }
         public int UserId { get; set; }
         public DateTime AnsweredAt { get; set; }
-        public byte WasAnswerCorrect { get; set; }
+        public bool WasAnswerCorrect { get; set; }
 
         public virtual Question Question { get; set; }
         public virtual User User { get; set; }
