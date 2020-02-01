@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.Update;
+using Teacher.Website.Feature.Interview.Category.Update;
 
 namespace Teacher.Website.Integration.Tests
 {
@@ -32,7 +32,7 @@ namespace Teacher.Website.Integration.Tests
             var result = await facade.OnPostAsync(command);
 
             result.ShouldBeOfType<RedirectResult>();
-            ((RedirectResult)result).Url.ShouldBe("/Category/List");
+            ((RedirectResult)result).Url.ShouldBe("/Interview/Category/List");
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@page
+@model Interview.Question.List.IndexModel
+@{
+    ViewData["Title"] = "Lista pytań";
+}
+
+<h4>@ViewData["Title"]</h4>
+<a class="btn btn-outline-primary" style="position:absolute; margin-top:15px;" href="/Interview/Question/Create">Dodaj nowe</a>
+
+<table class="table table-striped"
+       data-toggle="table" data-pagination="true" data-search="true">
+    <thead>
+        <tr>
+            <th scope="col">Kategoria</th>
+            <th scope="col">Pytanie</th>
+            <th scope="col">Czy ma odpowiedź?</th>
+            <th scope="col">Edycja</th>
+            <th scope="col">Usuwanie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model.Data.Questions)
+        {
+            <tr>
+                <td>@question.CategoryName</td>
+                <td>@question.Content</td>
+                @if (question.HasMissingAnswer)
+                {
+                    <td>-nie-</td>
+                }
+                else
+                {
+                    <td>-tak-</td>
+                }
+                <td><u><a href="/Interview/Question/Update/@question.Id">Zmień</a></u></td>
+                <td><u><a href="/Interview/Question/Delete/@question.Id">Usuń</a></u></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_TableScriptsPartial" />
+}

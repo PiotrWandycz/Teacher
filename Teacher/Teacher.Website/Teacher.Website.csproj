@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Feature\Interview\Summary\**" />
+    <Compile Remove="Feature\User\**" />
     <Content Remove="Feature\Interview\Summary\**" />
+    <Content Remove="Feature\User\**" />
     <EmbeddedResource Remove="Feature\Interview\Summary\**" />
+    <EmbeddedResource Remove="Feature\User\**" />
     <None Remove="Feature\Interview\Summary\**" />
+    <None Remove="Feature\User\**" />
   </ItemGroup>
 
 
@@ -37,7 +41,7 @@
 
   <ItemGroup>
     <Folder Include="Feature\Interview\CatchUp\" />
-    <Folder Include="Feature\User\Statistics\" />
+    <Folder Include="Feature\Exam\" />
   </ItemGroup>
 
 

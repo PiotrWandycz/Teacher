@@ -9,3 +9,7 @@
     .link-danger:hover {
         color: #c73531;
     }
+
+.card {
+    border-radius: 0;
+}

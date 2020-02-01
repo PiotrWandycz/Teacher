@@ -2,7 +2,7 @@
 using Shouldly;
 using System.Linq;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.List;
+using Teacher.Website.Feature.Interview.Category.List;
 
 namespace Teacher.Website.Integration.Tests
 {

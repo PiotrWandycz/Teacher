@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Question.Create;
+using Teacher.Website.Feature.Interview.Question.Create;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
 namespace Teacher.Website.Feature.Tests.Question

@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.Create;
+using Teacher.Website.Feature.Interview.Category.Create;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
 namespace Teacher.Website.Feature.Tests.Category
@@ -16,8 +16,7 @@ namespace Teacher.Website.Feature.Tests.Category
         public async Task QueryHandler_should_return_a_new_model()
         {
             var query = new Query();
-            var repo = A.Fake<IRepository>();
-            var handler = new QueryHandler(repo);
+            var handler = new QueryHandler();
 
             var result = await handler.Handle(query, CancellationToken.None);
 

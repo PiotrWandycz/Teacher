@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Teacher.Website.Infrastructure.Database
 {
@@ -22,6 +24,7 @@ namespace Teacher.Website.Infrastructure.Database
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Path> Path { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<VwQuestionDetails> VwQuestionDetails { get; set; }
@@ -32,7 +35,7 @@ namespace Teacher.Website.Infrastructure.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQL17;Database=Teacher.Database;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Teacher;Trusted_Connection=True;");
             }
         }
 
@@ -40,6 +43,8 @@ namespace Teacher.Website.Infrastructure.Database
         {
             modelBuilder.Entity<Answer>(entity =>
             {
+                entity.ToTable("Answer", "Interview");
+
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.AnswerNavigation)
                     .HasForeignKey(d => d.QuestionId)
@@ -153,6 +158,17 @@ namespace Teacher.Website.Infrastructure.Database
 
             modelBuilder.Entity<Category>(entity =>
             {
+                entity.ToTable("Category", "Interview");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(128);
+            });
+
+            modelBuilder.Entity<Path>(entity =>
+            {
+                entity.ToTable("Path", "Exam");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(128);
@@ -160,6 +176,8 @@ namespace Teacher.Website.Infrastructure.Database
 
             modelBuilder.Entity<Question>(entity =>
             {
+                entity.ToTable("Question", "Interview");
+
                 entity.Property(e => e.Content).IsRequired();
 
                 entity.HasOne(d => d.Category)
@@ -185,7 +203,7 @@ namespace Teacher.Website.Infrastructure.Database
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_QuestionDetails");
+                entity.ToView("vw_QuestionDetails", "Interview");
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()

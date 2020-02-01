@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.Delete;
+using Teacher.Website.Feature.Interview.Category.Delete;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
 namespace Teacher.Website.Feature.Tests.Category

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Teacher.Website.Infrastructure.Database
 {
@@ -11,7 +12,6 @@ namespace Teacher.Website.Infrastructure.Database
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte ItemOrder { get; set; }
 
         public virtual ICollection<Question> Question { get; set; }
     }

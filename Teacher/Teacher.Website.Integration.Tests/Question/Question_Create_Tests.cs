@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Question.Create;
+using Teacher.Website.Feature.Interview.Question.Create;
 
 namespace Teacher.Website.Integration.Tests
 {
@@ -21,7 +21,7 @@ namespace Teacher.Website.Integration.Tests
             var result = await facade.OnPostAsync(command);
 
             result.ShouldBeOfType<RedirectResult>();
-            ((RedirectResult)result).Url.ShouldBe("/Question/List");
+            ((RedirectResult)result).Url.ShouldBe("/Interview/Question/List");
         }
     }
 }

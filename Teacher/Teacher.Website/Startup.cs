@@ -1,20 +1,12 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Teacher.Website.Infrastructure.Database;
-using Teacher.Website.Infrastructure;
-using Teacher.Domain.Infrastructure;
-using Microsoft.AspNetCore.Http;
-using Teacher.Website.Infrastructure.Mediatr;
 
 namespace Teacher.Website
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -25,54 +17,10 @@ namespace Teacher.Website
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureRazorPages(services);
+            ConfigureApplication(services);
             ConfigureDatabase(services);
-            ConfigureApp(services);
             ConfigureMediatR(services);
-        }
-
-        private void ConfigureRazorPages(IServiceCollection services)
-        {
-            services.AddRazorPages()
-                .AddRazorPagesOptions(options => { options.RootDirectory = "/Feature"; });
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<IdentityContext>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpContextAccessor();
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            });
-        }
-
-        private void ConfigureDatabase(IServiceCollection services)
-        {
-            services.AddSingleton<IConnectionStringFactory, ConnectionStringFactory>();
-            services.AddDbContext<TeacherContext>(options =>
-                            options.UseSqlServer(
-                                Configuration.GetConnectionString("DatabaseConnection")));
-            services.AddDbContext<IdentityContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DatabaseConnection")));
-        }
-
-        private void ConfigureApp(IServiceCollection services)
-        {
-            services.Scan(x => x.FromAssemblyOf<Startup>()
-                .AddClasses(x => x.AssignableTo<IPageFacadeMarker>())
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-            services.Scan(x => x.FromAssemblyOf<Startup>()
-                .AddClasses(x => x.AssignableTo<IRepositoryMarker>())
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-            services.RegisterDomain();
-        }
-
-        private void ConfigureMediatR(IServiceCollection services)
-        {
-            services.AddMediatR(typeof(Startup).Assembly);
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineBehavior<,>));
+            ConfigureRazorPages(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -93,7 +41,6 @@ namespace Teacher.Website
 
             app.UseAuthentication();
             app.UseRouting();
-            app.UseMvc();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

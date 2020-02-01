@@ -23,7 +23,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT Id FROM [Question]";
+                var sql = $"SELECT Id FROM [Interview].[Question]";
                 return await db.QueryAsync<int>(sql);
             }
         }
@@ -32,7 +32,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT Id, QuestionId, UserId, AnsweredAt FROM [Answer]";
+                var sql = $"SELECT Id, QuestionId, UserId, AnsweredAt FROM [Interview].[Answer]";
                 return await db.QueryAsync<AnswerReadModel>(sql);
             }
         }
@@ -41,7 +41,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT * FROM [vw_QuestionDetails] WHERE [QuestionId] = { questionId }";
+                var sql = $"SELECT * FROM [Interview].[vw_QuestionDetails] WHERE [QuestionId] = { questionId }";
                 return await db.QueryFirstAsync<vw_QuestionDetails>(sql);
             }
         }

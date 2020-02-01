@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Category.Delete;
+using Teacher.Website.Feature.Interview.Category.Delete;
 
 namespace Teacher.Website.Integration.Tests
 {
@@ -21,7 +21,7 @@ namespace Teacher.Website.Integration.Tests
             var result = await facade.OnGetAsync(command);
 
             result.ShouldBeOfType<RedirectResult>();
-            ((RedirectResult)result).Url.ShouldBe("/Category/List");
+            ((RedirectResult)result).Url.ShouldBe("/Interview/Category/List");
         }
     }
 }

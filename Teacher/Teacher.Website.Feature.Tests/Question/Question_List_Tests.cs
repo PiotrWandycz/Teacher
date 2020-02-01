@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Teacher.Website.Feature.Question.List;
+using Teacher.Website.Feature.Interview.Question.List;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
 namespace Teacher.Website.Feature.Tests.Question
