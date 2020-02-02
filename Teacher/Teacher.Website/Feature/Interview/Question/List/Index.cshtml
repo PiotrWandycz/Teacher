@@ -26,11 +26,11 @@
                 <td>@question.Content</td>
                 @if (question.HasMissingAnswer)
                 {
-                    <td>-nie-</td>
+                    <td class="text-danger">nie</td>
                 }
                 else
                 {
-                    <td>-tak-</td>
+                    <td class="text-success">tak</td>
                 }
                 <td><u><a href="/Interview/Question/Update/@question.Id">Zmień</a></u></td>
                 <td><u><a href="/Interview/Question/Delete/@question.Id">Usuń</a></u></td>
