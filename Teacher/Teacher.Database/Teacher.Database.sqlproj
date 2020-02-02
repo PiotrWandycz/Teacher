@@ -47,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatTSqlWarningsAsErrors>False</TreatTSqlWarningsAsErrors>
+    <SqlTargetName>Teacher</SqlTargetName>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -90,6 +91,6 @@
     <PostDeploy Include="Teacher.Database.PostDeployment.sql" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Teacher.Database_Create.sql" "$(SolutionDir)\Teacher.Website.Integration.Tests\Files" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)\bin\Debug\Teacher.Database_Create.sql" "$(SolutionDir)\Teacher.Website.Integration.Tests\Infrastructure\Files" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

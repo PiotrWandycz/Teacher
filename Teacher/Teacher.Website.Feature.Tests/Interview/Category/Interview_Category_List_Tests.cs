@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using Teacher.Website.Feature.Interview.Category.List;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests.Category
+namespace Teacher.Website.Feature.Tests.Interview.Category
 {
     [TestFixture]
-    public class Category_List_Tests : TestBase
+    public class Interview_Category_List_Tests : TestBase
     {
         [Test]
         public async Task QueryHandler_should_return_a_new_model_when_query_doesnt_find_any_categories()

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Teacher.Website.Feature.Interview.Question.Create;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests.Question
+namespace Teacher.Website.Feature.Tests.Interview.Question
 {
     [TestFixture]
-    public class Question_Create_Tests : TestBase
+    public class Interview_Question_Create_Tests : TestBase
     {
         [Test]
         public async Task QueryHandler_should_return_a_new_model()

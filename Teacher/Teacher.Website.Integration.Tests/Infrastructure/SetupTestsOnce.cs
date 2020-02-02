@@ -23,7 +23,7 @@ namespace Teacher.Website.Integration.Tests
             script = script.Replace("DatabaseName \"Teacher.Database\"", "DatabaseName \"Teacher.Database.Tests\"");
             File.WriteAllText(databaseCreateFilePath, script);
 
-            var databaseSeedFilePath = Path.Combine(PathHelper.GetFilesPath(), "Teacher.Database_PostDeploy.TestSeed.sql");
+            var databaseSeedFilePath = Path.Combine(PathHelper.GetFilesPath(), "Teacher.Database_TestSeed.sql");
             var connectionString = new ConnectionStringFactory().ToServer();
             using (var connection = new SqlConnection(connectionString))
             {

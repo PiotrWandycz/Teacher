@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Teacher.Website.Feature.Interview.Category.Delete;
 using Teacher.Website.Feature.Tests.Infrastructure;
 
-namespace Teacher.Website.Feature.Tests.Category
+namespace Teacher.Website.Feature.Tests.Interview.Category
 {
     [TestFixture]
-    public class Category_Delete_Tests : TestBase
+    public class Interview_Category_Delete_Tests : TestBase
     {
         [Test]
         public async Task CommandHandler_should_delete_existing_category()

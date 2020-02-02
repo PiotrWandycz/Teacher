@@ -7,7 +7,7 @@ namespace Teacher.Website.Integration.Tests.Infrastructure
         public static string GetFilesPath()
         {
             var outputPath = Path.GetDirectoryName(typeof(TestBase).Assembly.Location);
-            return Path.Combine(outputPath, "Files");
+            return Path.Combine(outputPath, "Infrastructure", "Files");
         }
     }
 }

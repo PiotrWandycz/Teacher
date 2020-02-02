@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Files\appsettings.Test.json" />
-    <None Remove="Files\Teacher.Database_Create.sql" />
-    <None Remove="Files\Teacher.Database_TestSeed.sql" />
+    <None Remove="Infrastructure\Files\appsettings.Test.json" />
+    <None Remove="Infrastructure\Files\Teacher.Database_Create.sql" />
+    <None Remove="Infrastructure\Files\Teacher.Database_TestSeed.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Files\appsettings.Test.json">
+    <Content Include="Infrastructure\Files\appsettings.Test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Teacher.Database_Create.sql">
+    <Content Include="Infrastructure\Files\Teacher.Database_Create.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Teacher.Database_TestSeed.sql">
+    <Content Include="Infrastructure\Files\Teacher.Database_TestSeed.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

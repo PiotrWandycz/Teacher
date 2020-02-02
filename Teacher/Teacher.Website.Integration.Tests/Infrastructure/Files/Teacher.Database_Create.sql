@@ -192,20 +192,20 @@ IF fulltextserviceproperty(N'IsFulltextInstalled') = 1
 
 
 GO
-PRINT N'Creating [Interview]...';
-
-
-GO
-CREATE SCHEMA [Interview]
-    AUTHORIZATION [dbo];
-
-
-GO
 PRINT N'Creating [Exam]...';
 
 
 GO
 CREATE SCHEMA [Exam]
+    AUTHORIZATION [dbo];
+
+
+GO
+PRINT N'Creating [Interview]...';
+
+
+GO
+CREATE SCHEMA [Interview]
     AUTHORIZATION [dbo];
 
 
@@ -392,17 +392,14 @@ CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId]
 
 
 GO
-PRINT N'Creating [Interview].[Answer]...';
+PRINT N'Creating [Exam].[Path]...';
 
 
 GO
-CREATE TABLE [Interview].[Answer] (
-    [Id]               INT           IDENTITY (1, 1) NOT NULL,
-    [QuestionId]       INT           NOT NULL,
-    [UserId]           INT           NOT NULL,
-    [AnsweredAt]       DATETIME2 (7) NOT NULL,
-    [WasAnswerCorrect] BIT           NOT NULL,
-    CONSTRAINT [PK_Answer] PRIMARY KEY CLUSTERED ([Id] ASC)
+CREATE TABLE [Exam].[Path] (
+    [Id]   INT            IDENTITY (1, 1) NOT NULL,
+    [Name] NVARCHAR (128) NOT NULL,
+    CONSTRAINT [PK_ExamCategory] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -421,6 +418,21 @@ CREATE TABLE [Interview].[Question] (
 
 
 GO
+PRINT N'Creating [Interview].[Answer]...';
+
+
+GO
+CREATE TABLE [Interview].[Answer] (
+    [Id]               INT           IDENTITY (1, 1) NOT NULL,
+    [QuestionId]       INT           NOT NULL,
+    [UserId]           INT           NOT NULL,
+    [AnsweredAt]       DATETIME2 (7) NOT NULL,
+    [WasAnswerCorrect] BIT           NOT NULL,
+    CONSTRAINT [PK_Answer] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
 PRINT N'Creating [Interview].[Category]...';
 
 
@@ -429,18 +441,6 @@ CREATE TABLE [Interview].[Category] (
     [Id]   INT            IDENTITY (1, 1) NOT NULL,
     [Name] NVARCHAR (128) NOT NULL,
     CONSTRAINT [PK_InterviewCategory] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-PRINT N'Creating [Exam].[Path]...';
-
-
-GO
-CREATE TABLE [Exam].[Path] (
-    [Id]   INT            IDENTITY (1, 1) NOT NULL,
-    [Name] NVARCHAR (128) NOT NULL,
-    CONSTRAINT [PK_ExamCategory] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -508,6 +508,15 @@ ALTER TABLE [dbo].[AspNetRoleClaims]
 
 
 GO
+PRINT N'Creating [Interview].[FK_Question_Category]...';
+
+
+GO
+ALTER TABLE [Interview].[Question]
+    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Interview].[Category] ([Id]);
+
+
+GO
 PRINT N'Creating [Interview].[FK_Answer_Question]...';
 
 
@@ -523,15 +532,6 @@ PRINT N'Creating [Interview].[FK_Answer_User]...';
 GO
 ALTER TABLE [Interview].[Answer]
     ADD CONSTRAINT [FK_Answer_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
-
-
-GO
-PRINT N'Creating [Interview].[FK_Question_Category]...';
-
-
-GO
-ALTER TABLE [Interview].[Question]
-    ADD CONSTRAINT [FK_Question_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Interview].[Category] ([Id]);
 
 
 GO

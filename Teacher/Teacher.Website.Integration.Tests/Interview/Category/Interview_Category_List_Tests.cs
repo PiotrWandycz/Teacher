@@ -7,7 +7,7 @@ using Teacher.Website.Feature.Interview.Category.List;
 namespace Teacher.Website.Integration.Tests
 {
     [TestFixture]
-    public class Category_List_Tests : TestBase
+    public class Interview_Category_List_Tests : TestBase
     {
         [Test]
         public async Task OnGetAsync_should_work_in_a_happy_day_scenario()
