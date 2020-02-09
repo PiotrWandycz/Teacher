@@ -2,6 +2,7 @@
 using MediatR;
 using System;
 using Teacher.Website.Infrastructure;
+using Teacher.Domain.Infrastructure;
 
 namespace Teacher.Website.Feature.Tests.Infrastructure
 {
@@ -19,6 +20,7 @@ namespace Teacher.Website.Feature.Tests.Infrastructure
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
             services.AddMediatR(typeof(Startup).Assembly);
+            services.RegisterDomain();
             return services.BuildServiceProvider();
         }
     }

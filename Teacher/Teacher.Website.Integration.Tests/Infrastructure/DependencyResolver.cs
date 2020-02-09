@@ -4,6 +4,7 @@ using System;
 using Teacher.Website.Infrastructure;
 using Teacher.Website.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Teacher.Domain.Infrastructure;
 
 namespace Teacher.Website.Integration.Tests.Infrastructure
 {
@@ -25,6 +26,7 @@ namespace Teacher.Website.Integration.Tests.Infrastructure
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
             services.AddMediatR(typeof(Startup).Assembly);
+            services.RegisterDomain();
             return services.BuildServiceProvider();
         }
     }

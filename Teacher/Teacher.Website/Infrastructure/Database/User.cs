@@ -7,15 +7,13 @@ namespace Teacher.Website.Infrastructure.Database
     {
         public User()
         {
-            Learning = new HashSet<Learning>();
-            Statistics = new HashSet<Statistics>();
+            Answer = new HashSet<Answer>();
         }
 
         public int Id { get; set; }
         public string AspNetUserId { get; set; }
 
         public virtual AspNetUsers AspNetUser { get; set; }
-        public virtual ICollection<Learning> Learning { get; set; }
-        public virtual ICollection<Statistics> Statistics { get; set; }
+        public virtual ICollection<Answer> Answer { get; set; }
     }
 }

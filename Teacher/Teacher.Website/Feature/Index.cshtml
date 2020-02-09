@@ -1,15 +1,33 @@
 ﻿@page
 @model Teacher.Website.Pages.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Strona główna";
 }
 
-<div class="row d-flex justify-content-center">
-    <div class="col-md-4" style="margin-top: 100px;">
-        <a class="btn btn-outline-primary btn-block" asp-page="Learn">Test</a>
-        <a class="btn btn-outline-primary btn-block" asp-page="Learn">Nauka</a>
-        <a class="btn btn-outline-info btn-block mt-md-4" asp-page="Learn">Statystyki</a>
-        <a class="btn btn-outline-warning btn-block mt-md-4" href="/Question/List">Edytuj pytania</a>
-        <a class="btn btn-outline-warning btn-block" href="/Category/List">Edytuj kategorie</a>
+<div class="row d-flex justify-content-center mt-6">
+    <div class="card border-primary m-3" style="max-width: 20rem;">
+        <div class="card-header">Rozmowa rekrutacyjna</div>
+        <div class="card-body">
+            <p class="card-text">Planujesz zmienić pracę? Sprawdź swoją wiedzę zanim wybierzesz się na rozmowę kwalifikacyjną.</p>
+            <a class="btn btn-outline-primary btn-block" href="/Interview/Answer">Sprawdź się</a>
+            <a class="disabled btn btn-outline-primary btn-block" href="/Interview/CatchUp">Intensywna nauka</a>
+            @*<a class="btn btn-outline-info btn-block mt-md-4" href="/User/Statistics">Statystyki</a>*@
+            <a class="btn btn-outline-warning btn-block mt-md-4" href="/Interview/Question/List">Edytuj pytania</a>
+            <a class="btn btn-outline-warning btn-block" href="/Interview/Category/List">Edytuj kategorie</a>
+        </div>
+    </div>
+    <div class="card border-primary m-3" style="max-width: 20rem;">
+        <div class="card-header">Ścieżka egzaminacyjna</div>
+        <div class="card-body">
+            <p class="card-text">Wybierz rodzaj certyfikatu i sprawdź czy zdasz egzamin.</p>
+            <a class="disabled btn btn-outline-warning btn-block mt-md-4" href="">Edytuj ścieżki</a>
+        </div>
+    </div>
+    <div class="card border-warning m-3" style="max-width: 20rem;">
+        <div class="card-header">Administracja systemem</div>
+        <div class="card-body">
+            <p class="card-text">Zarządzaj ustawieniami strony</p>
+            <a class="btn btn-outline-info btn-block mt-md-4" href="/Routing">Podejrzyj routing</a>
+        </div>
     </div>
 </div>

@@ -15,6 +15,7 @@ namespace Teacher.Website.Infrastructure.Database
         {
         }
 
+        public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -23,13 +24,11 @@ namespace Teacher.Website.Infrastructure.Database
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Learning> Learning { get; set; }
-        public virtual DbSet<LearningQuestion> LearningQuestion { get; set; }
+        public virtual DbSet<Path> Path { get; set; }
         public virtual DbSet<Question> Question { get; set; }
-        public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<VwQuestionCreateUpdate> VwQuestionCreateUpdate { get; set; }
-        public virtual DbSet<VwQuestionList> VwQuestionList { get; set; }
+        public virtual DbSet<VwQuestionDetails> VwQuestionDetails { get; set; }
+        public virtual DbSet<VwUserDetails> VwUserDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,6 +41,23 @@ namespace Teacher.Website.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Answer>(entity =>
+            {
+                entity.ToTable("Answer", "Interview");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.AnswerNavigation)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_Question");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Answer)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_User");
+            });
+
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.HasIndex(e => e.RoleId);
@@ -142,61 +158,32 @@ namespace Teacher.Website.Infrastructure.Database
 
             modelBuilder.Entity<Category>(entity =>
             {
+                entity.ToTable("Category", "Interview");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(128);
             });
 
-            modelBuilder.Entity<Learning>(entity =>
+            modelBuilder.Entity<Path>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("Path", "Exam");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Learning)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Learning_User");
-            });
-
-            modelBuilder.Entity<LearningQuestion>(entity =>
-            {
-                entity.HasOne(d => d.Learning)
-                    .WithMany(p => p.LearningQuestion)
-                    .HasForeignKey(d => d.LearningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LearningQuestion_Learning");
-
-                entity.HasOne(d => d.Question)
-                    .WithMany(p => p.LearningQuestion)
-                    .HasForeignKey(d => d.QuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LearningQuestion_Question");
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(128);
             });
 
             modelBuilder.Entity<Question>(entity =>
             {
+                entity.ToTable("Question", "Interview");
+
                 entity.Property(e => e.Content).IsRequired();
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Question)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Question_Category");
-            });
-
-            modelBuilder.Entity<Statistics>(entity =>
-            {
-                entity.HasOne(d => d.Learning)
-                    .WithMany(p => p.Statistics)
-                    .HasForeignKey(d => d.LearningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Statistics_Learning");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Statistics)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Statistics_User");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -212,11 +199,11 @@ namespace Teacher.Website.Infrastructure.Database
                     .HasConstraintName("FK_User_AspNetUsers");
             });
 
-            modelBuilder.Entity<VwQuestionCreateUpdate>(entity =>
+            modelBuilder.Entity<VwQuestionDetails>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_QuestionCreateUpdate");
+                entity.ToView("vw_QuestionDetails", "Interview");
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
@@ -225,17 +212,17 @@ namespace Teacher.Website.Infrastructure.Database
                 entity.Property(e => e.Content).IsRequired();
             });
 
-            modelBuilder.Entity<VwQuestionList>(entity =>
+            modelBuilder.Entity<VwUserDetails>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_QuestionList");
+                entity.ToView("vw_UserDetails");
 
-                entity.Property(e => e.CategoryName)
+                entity.Property(e => e.AspNetUserId)
                     .IsRequired()
-                    .HasMaxLength(128);
+                    .HasMaxLength(450);
 
-                entity.Property(e => e.Content).IsRequired();
+                entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);
