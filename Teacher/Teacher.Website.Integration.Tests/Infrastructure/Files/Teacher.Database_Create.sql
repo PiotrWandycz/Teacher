@@ -187,6 +187,55 @@ IF EXISTS (SELECT 1
 
 
 GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET QUERY_STORE (QUERY_CAPTURE_MODE = ALL, DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_PLANS_PER_QUERY = 200, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 367), MAX_STORAGE_SIZE_MB = 100) 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET QUERY_STORE = OFF 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+        ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+        ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+    END
+
+
+GO
+IF EXISTS (SELECT 1
+           FROM   [master].[dbo].[sysdatabases]
+           WHERE  [name] = N'$(DatabaseName)')
+    BEGIN
+        ALTER DATABASE [$(DatabaseName)]
+            SET TEMPORAL_HISTORY_RETENTION ON 
+            WITH ROLLBACK IMMEDIATE;
+    END
+
+
+GO
 IF fulltextserviceproperty(N'IsFulltextInstalled') = 1
     EXECUTE sp_fulltext_database 'enable';
 
@@ -596,6 +645,52 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+INSERT INTO [dbo].[AspNetUsers]([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount])
+    VALUES('system', 'admin', 'ADMIN', NULL, NULL, 0, 'AQAAAAEAACcQAAAAEAihBvP+LNNYMsiRW1OLnpsAW2g2iQtMybykor+mGL+GycOwQrzv5Zs8McYC4ddjPw==', 'D5A3TYLRQKI33IRITK3VTW7OTS4PT7I7', '64fb7a7f-3a9a-4ee7-b0f8-8fea9521584b', NULL, 0, 0, NULL, 1, 0)
+
+
+
+DECLARE @Cat1Id int;
+
+INSERT INTO [Interview].[Category]([Name])
+	VALUES ('Programowanie obiektowe');
+
+SET @Cat1Id = SCOPE_IDENTITY();	
+
+INSERT INTO [Interview].[Question](CategoryId, Content, Answer)
+VALUES (@Cat1Id, 'Question 1', NULL),
+(@Cat1Id, 'Question 2', 'Answer'),
+(@Cat1Id, 'Question 3', 'Answer'),
+(@Cat1Id, 'Question 4', 'Answer');
+
+
+
+DECLARE @Cat2Id int;
+
+INSERT INTO [Interview].[Category]([Name])
+	VALUES ('SQL Server');
+
+SET @Cat2Id = SCOPE_IDENTITY();	
+
+INSERT INTO [Interview].[Question](CategoryId, Content, Answer)
+VALUES (@Cat2Id, 'Question 1', 'Answer'),
+(@Cat2Id, 'Question 2', NULL),
+(@Cat2Id, 'Question 3', 'Answer'),
+(@Cat2Id, 'Question 4', 'Answer');
+
+	
+
+DECLARE @Cat3Id int;
+
+INSERT INTO [Interview].[Category]([Name])
+	VALUES ('Wzorce projektowe');
+
+SET @Cat3Id = SCOPE_IDENTITY();	
+
+INSERT INTO [Interview].[Question](CategoryId, Content, Answer)
+VALUES (@Cat3Id, 'Question 1', 'Answer'),
+(@Cat3Id, 'Question 2', 'Answer'),
+(@Cat3Id, 'Question 3', NULL);
 GO
 
 GO

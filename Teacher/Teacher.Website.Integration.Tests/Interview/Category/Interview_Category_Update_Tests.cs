@@ -9,7 +9,7 @@ namespace Teacher.Website.Integration.Tests
     [TestFixture]
     public class Interview_Category_Update_Tests : TestBase
     {
-        [Test]
+        [Test, Order(1)]
         public async Task OnGetAsync_should_work_in_a_happy_day_scenario()
         {
             var facade = GetService<IPageFacade>();
@@ -20,13 +20,13 @@ namespace Teacher.Website.Integration.Tests
             result.Category.Name.ShouldBe("Cat 1");
         }
 
-        [Test]
+        [Test, Order(2)]
         public async Task OnPostAsync_should_work_in_a_happy_day_scenario()
         {
             var facade = GetService<IPageFacade>();
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Id = 102, Name = "Cat 5" }
+                Category = new ViewModel.CategoryInputModel { Id = 102, Name = "Cat 5" }
             };
 
             var result = await facade.OnPostAsync(command);

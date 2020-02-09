@@ -4,14 +4,14 @@ namespace Teacher.Website.Feature.Interview.Category.List
 {
     public class ViewModel
     {
-        public IEnumerable<CategoryViewModel> Categories { get; set; }
+        public IEnumerable<CategoryInputModel> Categories { get; set; }
 
         public ViewModel()
         {
-            Categories = new List<CategoryViewModel>();
+            Categories = new List<CategoryInputModel>();
         }
 
-        public class CategoryViewModel
+        public class CategoryInputModel
         {
             public int Id { get; set; }
             public string Name { get; set; }

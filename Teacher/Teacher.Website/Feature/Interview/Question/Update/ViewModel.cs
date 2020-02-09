@@ -7,18 +7,18 @@ namespace Teacher.Website.Feature.Interview.Question.Update
 {
     public class ViewModel
     {
-        [BindProperty]
-        public QuestionViewModel Question { get; set; }
-
         public List<SelectListItem> Categories { get; set; }
+
+        [BindProperty]
+        public QuestionInputModel Question { get; set; }
 
         public ViewModel()
         {
-            Question = new QuestionViewModel();
             Categories = new List<SelectListItem>();
+            Question = new QuestionInputModel();
         }
 
-        public class QuestionViewModel
+        public class QuestionInputModel
         {
             [Required]
             [HiddenInput]
@@ -39,7 +39,7 @@ namespace Teacher.Website.Feature.Interview.Question.Update
             public string Answer { get; set; }
         }
 
-        public class CategoryViewModel
+        public class CategoryReadModel
         {
             public int Id { get; set; }
 

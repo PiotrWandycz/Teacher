@@ -17,7 +17,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Question
         {
             var query = new Query() { Id = 7 };
             var repo = A.Fake<IRepository>();
-            A.CallTo(() => repo.GetQuestionAsync(7)).Returns(new ViewModel.QuestionViewModel() { Id = 7, Content = "Que" });
+            A.CallTo(() => repo.GetQuestionAsync(7)).Returns(new ViewModel.QuestionInputModel() { Id = 7, Content = "Que" });
             var handler = new QueryHandler(repo);
 
             var result = await handler.Handle(query, CancellationToken.None);
@@ -32,7 +32,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Question
         {
             var command = new Command
             {
-                Question = new ViewModel.QuestionViewModel { Id = 11, Content = "Que", CategoryId = 5 }
+                Question = new ViewModel.QuestionInputModel { Id = 11, Content = "Que", CategoryId = 5 }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);

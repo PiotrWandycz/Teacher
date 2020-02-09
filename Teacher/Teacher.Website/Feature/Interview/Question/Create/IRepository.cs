@@ -6,7 +6,7 @@ namespace Teacher.Website.Feature.Interview.Question.Create
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<IEnumerable<ViewModel.CategoryViewModel>> GetCategoriesAsync();
-        Task CreateQuestionAsync(ViewModel.QuestionViewModel question);
+        Task<IEnumerable<ViewModel.CategoryReadModel>> GetCategoriesAsync();
+        Task CreateQuestionAsync(ViewModel.QuestionInputModel question);
     }
 }

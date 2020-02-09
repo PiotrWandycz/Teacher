@@ -29,7 +29,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Question
         {
             var command = new Command
             {
-                Question = new ViewModel.QuestionViewModel { Content = "Que", CategoryId = 3 }
+                Question = new ViewModel.QuestionInputModel { Content = "Que", CategoryId = 3 }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);

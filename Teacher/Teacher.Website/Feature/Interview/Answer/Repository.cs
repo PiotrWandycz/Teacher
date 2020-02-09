@@ -19,11 +19,11 @@ namespace Teacher.Website.Feature.Interview.Answer
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<int>> GetQuestionIdsAsync()
+        public async Task<IEnumerable<int>> GetQuestionIdsThatHasAnswerAsync()
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
-                var sql = $"SELECT Id FROM [Interview].[Question]";
+                var sql = $"SELECT Id FROM [Interview].[Question] WHERE [Answer] IS NOT NULL";
                 return await db.QueryAsync<int>(sql);
             }
         }

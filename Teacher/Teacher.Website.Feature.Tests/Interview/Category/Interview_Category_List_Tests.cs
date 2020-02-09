@@ -32,10 +32,10 @@ namespace Teacher.Website.Feature.Tests.Interview.Category
         {
             var query = new Query();
             var repo = A.Fake<IRepository>();
-            A.CallTo(() => repo.GetCategoriesAsync()).Returns(new List<ViewModel.CategoryViewModel>
+            A.CallTo(() => repo.GetCategoriesAsync()).Returns(new List<ViewModel.CategoryInputModel>
             {
-                new ViewModel.CategoryViewModel { Id = 5, Name = "Cat1" },
-                new ViewModel.CategoryViewModel { Id = 6, Name = "Cat2" }
+                new ViewModel.CategoryInputModel { Id = 5, Name = "Cat1" },
+                new ViewModel.CategoryInputModel { Id = 6, Name = "Cat2" }
             });
             var handler = new QueryHandler(repo);
 

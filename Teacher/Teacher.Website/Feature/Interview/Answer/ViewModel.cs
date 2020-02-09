@@ -8,12 +8,12 @@ namespace Teacher.Website.Feature.Interview.Answer
     {
         public QuestionReadModel Question { get; set; }
 
-        public AnswerViewModel Answer { get; set;}
+        public AnswerInputModel Answer { get; set;}
 
         public ViewModel()
         {
             Question = new QuestionReadModel();
-            Answer = new AnswerViewModel();
+            Answer = new AnswerInputModel();
         }
     }
 
@@ -28,8 +28,7 @@ namespace Teacher.Website.Feature.Interview.Answer
         public string Answer { get; set; }
     }
 
-
-    public class AnswerViewModel
+    public class AnswerInputModel
     {
         [HiddenInput]
         [Required]

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Teacher.Website.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using FluentValidation.AspNetCore;
 
 namespace Teacher.Website
 {
@@ -10,6 +11,7 @@ namespace Teacher.Website
         private void ConfigureRazorPages(IServiceCollection services)
         {
             services.AddRazorPages()
+                .AddFluentValidation()
                 .AddRazorPagesOptions(options => { options.RootDirectory = "/Feature"; });
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<IdentityContext>();

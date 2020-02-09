@@ -9,13 +9,13 @@ namespace Teacher.Website.Integration.Tests
     [TestFixture]
     public class Interview_Category_Create_Tests : TestBase
     {
-        [Test]
+        [Test, Order(1)]
         public async Task OnPostAsync_should_work_in_a_happy_day_scenario()
         {
             var facade = GetService<IPageFacade>();
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Name = "Cat 4" }
+                Category = new ViewModel.CategoryInputModel { Name = "Cat 4" }
             };
 
             var result = await facade.OnPostAsync(command);

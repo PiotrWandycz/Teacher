@@ -9,7 +9,7 @@ namespace Teacher.Website.Integration.Tests
     [TestFixture]
     public class Interview_Question_List_Tests : TestBase
     {
-        [Test]
+        [Test, Order(1)]
         public async Task OnGetAsync_should_work_in_a_happy_day_scenario()
         {
             var facade = GetService<IPageFacade>();

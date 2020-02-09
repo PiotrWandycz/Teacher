@@ -17,7 +17,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Category
         {
             var query = new Query() { Id = 1 };
             var repo = A.Fake<IRepository>();
-            A.CallTo(() => repo.GetCategoryAsync(1)).Returns(new ViewModel.CategoryViewModel() { Id = 1, Name = "Cat" });
+            A.CallTo(() => repo.GetCategoryAsync(1)).Returns(new ViewModel.CategoryInputModel() { Id = 1, Name = "Cat" });
             var handler = new QueryHandler(repo);
 
             var result = await handler.Handle(query, CancellationToken.None);
@@ -32,7 +32,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Category
         {
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Id = 5, Name = "Cat" }
+                Category = new ViewModel.CategoryInputModel { Id = 5, Name = "Cat" }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);

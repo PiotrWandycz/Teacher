@@ -6,14 +6,14 @@ namespace Teacher.Website.Feature.Interview.Category.Update
     public class ViewModel
     {
         [BindProperty]
-        public CategoryViewModel Category { get; set; }
+        public CategoryInputModel Category { get; set; }
 
         public ViewModel()
         {
-            Category = new CategoryViewModel();
+            Category = new CategoryInputModel();
         }
 
-        public class CategoryViewModel
+        public class CategoryInputModel
         {
             [Required]
             public int Id { get; set; }

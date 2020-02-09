@@ -27,7 +27,7 @@ namespace Teacher.Website.Feature.Interview.Question.Update
             return model;
         }
 
-        private List<SelectListItem> MapCategories(IEnumerable<ViewModel.CategoryViewModel> categories)
+        private List<SelectListItem> MapCategories(IEnumerable<ViewModel.CategoryReadModel> categories)
         {
             return categories.Select(x => new SelectListItem
             {

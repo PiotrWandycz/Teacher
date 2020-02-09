@@ -18,12 +18,12 @@ namespace Teacher.Website.Feature.Interview.Category.Update
             _dbContext = dbContext;
         }
 
-        public async Task<ViewModel.CategoryViewModel> GetCategoryAsync(int id)
+        public async Task<ViewModel.CategoryInputModel> GetCategoryAsync(int id)
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
                 var sql = $"SELECT [Id], [Name] FROM [Interview].[Category] WHERE [Id] = { id }";
-                return await db.QueryFirstAsync<ViewModel.CategoryViewModel>(sql);
+                return await db.QueryFirstAsync<ViewModel.CategoryInputModel>(sql);
             }
         }
 

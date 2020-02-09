@@ -6,6 +6,6 @@ namespace Teacher.Website.Feature.Interview.Category.List
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<IEnumerable<ViewModel.CategoryViewModel>> GetCategoriesAsync();
+        Task<IEnumerable<ViewModel.CategoryInputModel>> GetCategoriesAsync();
     }
 }

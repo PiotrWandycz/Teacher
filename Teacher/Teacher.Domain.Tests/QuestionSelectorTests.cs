@@ -18,10 +18,10 @@ namespace Teacher.Domain.Tests
             // Arrange
             var service = new QuestionSelector();
             var questionIds = GetQuestionIds();
-            var occurences = GetOccurences();
+            var answerOccurences = GetAnswerOccurences();
 
             // Act
-            var result = service.GetNextQuestionId(questionIds, occurences);
+            var result = service.GetNextQuestionId(questionIds, answerOccurences);
 
             // Assert
             result.ShouldNotBe(1);
@@ -33,7 +33,7 @@ namespace Teacher.Domain.Tests
             return new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
         }
 
-        private List<AnswerOccurence> GetOccurences()
+        private List<AnswerOccurence> GetAnswerOccurences()
         {
             var occurences = new List<AnswerOccurence>();
             var occurence = new AnswerOccurence(1, new DateTime(2020, 01, 25));

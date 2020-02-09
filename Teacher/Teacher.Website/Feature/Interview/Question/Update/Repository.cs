@@ -18,25 +18,25 @@ namespace Teacher.Website.Feature.Interview.Question.Update
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<ViewModel.CategoryViewModel>> GetCategoriesAsync()
+        public async Task<IEnumerable<ViewModel.CategoryReadModel>> GetCategoriesAsync()
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
                 var sql = "SELECT [Id], [Name] FROM [Interview].[Category]";
-                return await db.QueryAsync<ViewModel.CategoryViewModel>(sql);
+                return await db.QueryAsync<ViewModel.CategoryReadModel>(sql);
             }
         }
 
-        public async Task<ViewModel.QuestionViewModel> GetQuestionAsync(int questionId)
+        public async Task<ViewModel.QuestionInputModel> GetQuestionAsync(int questionId)
         {
             using (var db = new SqlConnection(_connectionStringFactory.ToDatabase()))
             {
                 var sql = $"SELECT * FROM [Interview].[vw_QuestionDetails] WHERE [QuestionId] = { questionId }";
-                return await db.QueryFirstAsync<ViewModel.QuestionViewModel>(sql);
+                return await db.QueryFirstAsync<ViewModel.QuestionInputModel>(sql);
             }
         }
 
-        public async Task UpdateQuestionAsync(ViewModel.QuestionViewModel question)
+        public async Task UpdateQuestionAsync(ViewModel.QuestionInputModel question)
         {
             var questionToUpdate = await _dbContext.Question.FindAsync(question.Id);
             if (questionToUpdate is null)

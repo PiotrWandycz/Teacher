@@ -4,6 +4,6 @@ namespace Teacher.Website.Feature.Interview.Question.Update
 {
     public class Command : IRequest
     {
-        public ViewModel.QuestionViewModel Question { get; set; }
+        public ViewModel.QuestionInputModel Question { get; set; }
     }
 }

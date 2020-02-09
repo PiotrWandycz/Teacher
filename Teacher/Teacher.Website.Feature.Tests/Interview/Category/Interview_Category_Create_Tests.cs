@@ -28,7 +28,7 @@ namespace Teacher.Website.Feature.Tests.Interview.Category
         {
             var command = new Command
             {
-                Category = new ViewModel.CategoryViewModel { Name = "Cat" }
+                Category = new ViewModel.CategoryInputModel { Name = "Cat" }
             };
             var repo = A.Fake<IRepository>();
             var handler = new CommandHandler(repo);

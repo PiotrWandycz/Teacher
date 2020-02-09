@@ -29,9 +29,9 @@ namespace Teacher.Website.Feature.Interview.Answer
         public async Task<ViewModel> Handle(Query query, CancellationToken cancellationToken)
         {
             var model = new ViewModel();
-            var questionIds = await _repository.GetQuestionIdsAsync();
-            var answerDb = await _repository.GetAnswersAsync(query.UserId);
-            var answers = MapAnswers(answerDb);
+            var questionIds = await _repository.GetQuestionIdsThatHasAnswerAsync();
+            var answersDb = await _repository.GetAnswersAsync(query.UserId);
+            var answers = MapAnswers(answersDb);
             var occurences = _answerOccurenceCalculator.GetData(answers);
             var nextQuestionId = _questionSelector.GetNextQuestionId(questionIds, occurences);
             var questionDb = await _repository.GetQuestionAsync(nextQuestionId);

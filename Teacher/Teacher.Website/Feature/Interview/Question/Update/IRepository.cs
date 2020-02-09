@@ -6,8 +6,8 @@ namespace Teacher.Website.Feature.Interview.Question.Update
 {
     public interface IRepository : IRepositoryMarker
     {
-        Task<IEnumerable<ViewModel.CategoryViewModel>> GetCategoriesAsync();
-        Task<ViewModel.QuestionViewModel> GetQuestionAsync(int questionId);
-        Task UpdateQuestionAsync(ViewModel.QuestionViewModel question);
+        Task<IEnumerable<ViewModel.CategoryReadModel>> GetCategoriesAsync();
+        Task<ViewModel.QuestionInputModel> GetQuestionAsync(int questionId);
+        Task UpdateQuestionAsync(ViewModel.QuestionInputModel question);
     }
 }
