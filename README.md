@@ -9,8 +9,6 @@
 * Dapper
 * Entity Framework Core
 
-## Ubiuqitous Language
-
 **Interview** - 
 
 # Modules
@@ -23,10 +21,6 @@
 
 ### Interview - Domain part
 
-
 **Interview/Answer** - regular interview page that should be visited daily
 
 **Interview/CatchUp** - after some time using the app, the user can use this page to answer questions he has problems with (based on wrong answers)
-
-## Exam
-
