@@ -9,8 +9,6 @@
 * Dapper
 * Entity Framework Core
 
-**Interview** - 
-
 # Modules
 
 ## Interview
