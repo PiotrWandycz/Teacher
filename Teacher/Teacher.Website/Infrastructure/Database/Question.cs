@@ -7,7 +7,7 @@ namespace Teacher.Website.Infrastructure.Database
     {
         public Question()
         {
-            LearningQuestion = new HashSet<LearningQuestion>();
+            AnswerNavigation = new HashSet<Answer>();
         }
 
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace Teacher.Website.Infrastructure.Database
         public string Answer { get; set; }
 
         public virtual Category Category { get; set; }
-        public virtual ICollection<LearningQuestion> LearningQuestion { get; set; }
+        public virtual ICollection<Answer> AnswerNavigation { get; set; }
     }
 }

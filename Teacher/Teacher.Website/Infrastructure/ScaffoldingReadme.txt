@@ -1,1 +1,1 @@
-﻿Scaffold-DbContext "Server=.\SQLEXPRESS;Database=Teacher;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Infrastructure\Database -Context TeacherContext -force
+﻿Scaffold-DbContext "Server=.\SQLEXPRESS;Database=Teacher.Database;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Infrastructure\Database -Context TeacherContext -force

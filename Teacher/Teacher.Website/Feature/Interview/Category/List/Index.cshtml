@@ -1,0 +1,33 @@
+﻿@page
+@model Interview.Category.List.IndexModel
+@{
+    ViewData["Title"] = "Lista kategorii";
+}
+
+<h4>@ViewData["Title"]</h4>
+<a href="/Interview/Category/Create" class="btn btn-outline-primary" style="position:absolute; margin-top:15px;">Dodaj nową</a>
+
+<table class="table table-striped"
+       data-toggle="table" data-pagination="true" data-search="true">
+    <thead>
+        <tr>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Edycja</th>
+            <th scope="col">Usuwanie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Data.Categories)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td><u><a href="/Interview/Category/Update/@category.Id">Zmień</a></u></td>
+                <td><u><a href="/Interview/Category/Delete/@category.Id" class="link-danger">Usuń</a></u></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_TableScriptsPartial" />
+}

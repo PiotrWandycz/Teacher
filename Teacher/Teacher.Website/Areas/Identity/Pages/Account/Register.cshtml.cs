@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Teacher.Website.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
